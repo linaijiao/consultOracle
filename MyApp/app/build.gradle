@@ -1,0 +1,51 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace 'com.bhcj.telling'
+    compileSdk 34  // 建议使用 34 而不是 36
+
+    defaultConfig {
+        applicationId "com.bhcj.telling"
+        minSdk 21
+        targetSdk 34  // 同步更新
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // 更新到最新稳定版本
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // 只保留 Material Design，删除 Support Library
+    implementation 'com.google.android.material:material:1.9.0'
+
+    // FastJSON - 注意安全漏洞，考虑使用 Gson 替代
+    implementation 'com.alibaba:fastjson:1.2.83'  // 更新到最新版本
+
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation("com.jawnnypoo:physicslayout:3.0.1")
+
+    // 测试依赖也更新到最新
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}

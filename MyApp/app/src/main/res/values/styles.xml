@@ -1,0 +1,31 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="titleTextColor">@color/colorTitle</item>
+        <item name="titleTextStyle">@style/MyActionBarTitleText</item>
+    </style>
+
+    <!-- Application theme. -->
+    <style name="GuaAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <!-- 隐藏状态栏 -->
+        <item name="android:windowFullscreen">true</item>
+        <!-- 隐藏标题栏 -->
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="customTheme">
+        <item name="dropDownListViewStyle">@style/customSpinnerStyle</item>
+    </style>
+    <style name="customSpinnerStyle" parent="android:Widget.ListView.DropDown">
+        <item name="android:textAlignment">center</item>
+        <item name="divider">@color/contentBackground</item>
+        <item name="android:dividerHeight">1dp</item>
+    </style>
+
+
+</resources>
