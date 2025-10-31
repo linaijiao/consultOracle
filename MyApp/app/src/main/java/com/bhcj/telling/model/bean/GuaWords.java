@@ -15,7 +15,7 @@ public class GuaWords implements Serializable {
 
     /** 卦象名称 */
     private String name;
-    111222233333333345553333333
+    1112222333333333455533333331
     /** 卦象标题/序号 */
     private String title;
     
