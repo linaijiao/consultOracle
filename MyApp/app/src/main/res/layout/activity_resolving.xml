@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".view.activity.MainActivity">
+
+<!--    <com.bhcj.telling.presenter.layout.TitleLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <TextView
+        android:id="@+id/noteView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical|left"
+        android:text="注：请点击下拉按钮选出每爻的结果（由下至上）"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/bo1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noteView">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:gravity="center_vertical|left"
+            android:text="上爻："
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/yaoSelect1"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/subjects"
+            android:popupBackground="@drawable/shape_for_custom_spinner"
+            android:background="@drawable/selector_for_custom_spinner"
+            android:gravity="center_vertical|center" />
+
+        <ImageView
+            android:id="@+id/boImageView1"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/guatu1"
+            android:gravity="center_vertical|center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bo2"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bo1">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:gravity="center_vertical|left"
+            android:text="五爻："
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/yaoSelect2"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/subjects"
+            android:popupBackground="@drawable/shape_for_custom_spinner"
+            android:background="@drawable/selector_for_custom_spinner"
+            android:gravity="center_vertical|center" />
+
+        <ImageView
+            android:id="@+id/boImageView2"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/guatu1"
+            android:gravity="center_vertical|center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bo3"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bo2">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:gravity="center_vertical|left"
+            android:text="四爻："
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/yaoSelect3"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/subjects"
+            android:popupBackground="@drawable/shape_for_custom_spinner"
+            android:background="@drawable/selector_for_custom_spinner"
+            android:gravity="center_vertical|center" />
+
+        <ImageView
+            android:id="@+id/boImageView3"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/guatu1"
+            android:gravity="center_vertical|center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bo4"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bo3">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:gravity="center_vertical|left"
+            android:text="三爻："
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/yaoSelect4"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/subjects"
+            android:popupBackground="@drawable/shape_for_custom_spinner"
+            android:background="@drawable/selector_for_custom_spinner"
+            android:gravity="center_vertical|center" />
+
+        <ImageView
+            android:id="@+id/boImageView4"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/guatu1"
+            android:gravity="center_vertical|center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bo5"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bo4">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:gravity="center_vertical|left"
+            android:text="二爻："
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/yaoSelect5"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/subjects"
+            android:popupBackground="@drawable/shape_for_custom_spinner"
+            android:background="@drawable/selector_for_custom_spinner"
+            android:gravity="center_vertical|center" />
+
+        <ImageView
+            android:id="@+id/boImageView5"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/guatu1"
+            android:gravity="center_vertical|center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bo6"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bo5">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:gravity="center_vertical|left"
+            android:text="初爻："
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/yaoSelect6"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/subjects"
+            android:popupBackground="@drawable/shape_for_custom_spinner"
+            android:background="@drawable/selector_for_custom_spinner"
+            android:gravity="center_vertical|center" />
+
+        <ImageView
+            android:id="@+id/boImageView6"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/guatu1"
+            android:gravity="center_vertical|center" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/guaName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical|center"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bo6" />
+
+    <TextView
+        android:id="@+id/guaBrief"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical|left"
+        android:letterSpacing="0.05"
+        android:lineSpacingMultiplier="1.2"
+        android:textSize="14sp"
+        android:textColorHighlight="#00ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guaName" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guaBrief" >
+        <TextView
+            android:id="@+id/guaBriefLastLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical|left"
+            android:letterSpacing="0.05"
+            android:lineSpacingMultiplier="1.2"
+            android:textSize="14dp" />
+        <TextView
+            android:id="@+id/linkView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:letterSpacing="0.05"
+            android:lineSpacingMultiplier="1.2"
+            android:textSize="14sp"
+            android:textColor="@color/colorLink"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="10dp"
+            android:text="[详情]"
+            />
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

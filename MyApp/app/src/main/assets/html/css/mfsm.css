@@ -1,0 +1,134 @@
+#formid0{
+    width: 6.9rem;
+    margin: 0.3rem auto;
+}
+#formid0 ul{
+    background: #FFF8F2;
+    border: 1px solid #E6CAB5;
+    opacity: 1;
+    border-radius: 0.1rem;
+}
+#formid0 li{
+    height: 0.88rem;
+    line-height: 0.88rem;
+    border-bottom: 1px solid rgba(230, 202, 181, 1);
+}
+#formid0 li:last-child{
+    border-bottom: none;
+}
+.cs-subtit{
+    text-align: center;
+    font-size: 0.32rem;
+    font-weight: bold;
+    color: #333333;
+    float: left;
+    padding-left: 0.3rem;
+}
+.cs-bday{
+    display: inline-block;
+    width: 68%;
+}
+input, select, button, textarea {
+    font-family: inherit;
+    outline: 0;
+    margin: 0;
+    color: inherit;
+    -webkit-appearance: none;
+}
+.cs-bday input{
+    width: 100%;
+    line-height: 0.8rem;
+    padding: 0;
+    font-size: 0.32rem;
+    color: #999;
+    border: 0;
+    background: none;
+}
+.cs-hour{
+    display: inline-block;
+    width: 68%;
+}
+.cs-hour select{
+    width: 100%;
+    line-height: 0.8rem;
+    padding: 0;
+    font-size: 0.32rem;
+    color: #999;
+    border: 0;
+    background: none;
+}
+.cs-sex{
+    margin-left: 0.2rem;
+    float: left;
+}
+.cs-sex span {
+    display: block;
+    float: left;
+    line-height: 0.75rem;
+    padding-top: 0.3rem;
+    padding-right: 0.5rem;
+}
+.cs-sex em{
+    display: block;
+    float: left;
+    width: 0.36rem;
+    height: 0.36rem;
+    background-image:url(../images/weixuan.png);
+    background-size: 100%;
+
+
+}
+.cs-sex span.cur em {
+    background-image:url(../images/xuanzhong.png);
+
+}
+.cs-sex font {
+    display: block;
+    height: 0.36rem;
+    line-height: 0.3rem;
+    overflow: hidden;
+    text-align: left;
+    padding-left: 10px;
+    color: #333;
+    font-size: 0.32rem;
+    padding-top: 0.03rem;
+}
+
+.cs-btn1{
+    float: left;
+    width:6.9rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    background-image:url(../images/chang.png) ;
+    background-size: 100% 100%;
+    margin-top: 0.3rem;
+    font-size: 0.36rem;
+    text-align: center;
+    color: #FFFFFF;
+    margin-bottom: 0.3rem;
+    overflow: hidden;
+}
+.cs-btn2{
+    margin-bottom: 0.3rem;
+    overflow: hidden;
+}
+.cs-btn2 a {
+    float: left;
+    display: inline-block;
+    background-image:url(../images/duan.png) ;
+    background-size: 100% 100%;
+    width: 2.4rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    margin-top: 0.3rem;
+    font-size: 0.36rem;
+    text-align: center;
+    color: #FFFFFF;
+    margin-left: 0.7rem;
+
+}
+
+.cs-btn1 a{
+    width: 6.9rem;
+    display: inline-block;
+}

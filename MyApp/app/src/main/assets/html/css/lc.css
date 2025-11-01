@@ -1,0 +1,90 @@
+.lc-cs-form,
+.lc-cs-form-tp {padding: 0.5em; font-size: 1.2em; color: #c83c23; background: #fff;}
+.lc-cs-form h4,
+.lc-cs-form-tp h4 {margin-top: 0.5em; padding-left: 0.5em; line-height: 1.5em; border-left: 0.5em solid #c83c23; color: #c83c23; font-weight: bold;}
+.lc-cs-form .cs-title,
+.lc-cs-form-tp .cs-title { padding-left: 0.5em; border-left: 0.3em solid #c83c23; font-size: 1.2em; font-weight: bold; color: #c83c23;}
+.lc-cs-form .cs-subtit,
+.lc-cs-form-tp .cs-subtit {display:inline-block; width: 30%; text-align: center;}
+.lc-cs-form .cs-xing,
+.lc-cs-form-tp .cs-xing,
+.lc-cs-form .cs-bday,
+.lc-cs-form-tp .cs-bday,
+.lc-cs-form .cs-hour,
+.lc-cs-form-tp .cs-hour,
+.lc-cs-form .cs-sex,
+.lc-cs-form-tp .cs-sex,
+.lc-cs-form-tp .cs-format,
+.lc-cs-form-tp .cs-dingzi {display:inline-block; width:68%;}
+.lc-cs-form .cs-xing input,
+.lc-cs-form-tp .cs-xing input,
+.lc-cs-form .cs-bday input,
+.lc-cs-form-tp .cs-bday input,
+.lc-cs-form-tp .cs-format input,
+.lc-cs-form-tp .cs-dingzi input,
+.lc-cs-form .cs-hour select,
+.lc-cs-form-tp .cs-hour select,
+.lc-cs-form-tp .cs-format select,
+.lc-cs-form-tp .cs-dingzi select {width:100%; line-height: 2.5em; padding: 0; font-size: 1em; color: #999; border: 0; background: none;}
+.lc-cs-form-tp .cs-dingzi select {width:70%; line-height: 2.5em; padding: 0; font-size: 1em; color: #999; border: 0; background: none;}
+.lc-cs-form-tp .cs-xing input,
+.lc-cs-form-tp .cs-dingzi input {width: 25%;border: 0.1em solid #666; line-height: 1.5em; border-radius: 0.2em;}
+.lc-cs-form .cs-sex,
+.lc-cs-form-tp .cs-sex {color: #999;}
+.lc-cs-form .cs-sex span,
+.lc-cs-form-tp .cs-sex span {display:inline-block; width:2em; text-align: center;}
+.lc-cs-form select,
+.lc-cs-form-tp select {-webkit-appearance: menulist;}
+.lc-cs-form ul,
+.lc-cs-form-tp ul {float:left; margin-top: 0.5em; border: 0.05em solid #c83c23; border-radius: 0.2em; }
+.lc-cs-form ul li,
+.lc-cs-form-tp ul li {float: left; width: 100%; height: 2.5em; line-height: 2.5em; border-bottom: 0.01em solid;}
+.lc-cs-form ul li.cs-btn1,
+.lc-cs-form-tp ul li.cs-btn1 {background: #c83c23; text-align: center;}
+.lc-cs-form ul li.cs-btn1 a,
+.lc-cs-form-tp ul li.cs-btn1 a {float:left; display:inline-block; width: 100%; color: #fff;}
+.lc-cs-form ul li.cs-btn2,
+.lc-cs-form-tp ul li.cs-btn2 {height:3.4em; padding:0.5em 0; border-bottom: none; text-align: center;}
+.lc-cs-form ul li.cs-btn2 a,
+.lc-cs-form-tp ul li.cs-btn2 a {float:left; display:inline-block; width:47%; margin-left:2%; color: #fff; background: #c83c23; border-radius: 0.2em;}
+.lc-cs-form ul li span.cs-sex span.cur font,
+.lc-cs-form-tp ul li span.cs-sex span.cur font {padding: 0.5em; color: #c83c23; background: url(img/cursex.png) no-repeat 0 0.1em; background-size: 2em 2em;}
+.lc-cs-form .cf,
+.lc-cs-form-tp .cf {clear:both;}
+.lc-cs-form-tp .lc-restart {color: #c4814d;}
+.lc-hide-more {position: relative; overflow: hidden;}
+.lc-hide-more:after {content: ""; position: absolute; bottom: 0; display: block; width: 100%; height: 6em; background: -webkit-gradient(linear,left top,left bottom,from(hsla(0,0%,100%,0)),to(#fff)); background: -webkit-gradient(linear,left top,left bottom,from(hsla(0,0%,100%,0)),to(#fff)); background: -webkit-linear-gradient(top,hsla(0,0%,100%,0),#fff); background: -moz-linear-gradient(top,hsla(0,0%,100%,0),#fff); background: -o-linear-gradient(top,hsla(0,0%,100%,0),#fff); background: linear-gradient(180deg,hsla(0,0%,100%,0),#fff);}
+.lc-show-more-btn {text-align: center;}
+.lc-show-more-btn span {display: inline-block; width: 50%; height: 2.5em; line-height: 2.5em; margin-top: 0.5em; color: #c83c23; border: 0.1em solid;  border-radius: 0.5em;}
+.lc-show-more-btn span i {display: inline-block; padding-top: 1.5em; width: 1.5em; height: 1.5em; background-image: url(img/icon.png); background-repeat: no-repeat; background-size: 210px 230px; background-position: -97px -50px;}
+.lc-go-top-btn {position: fixed; z-index: 1000; width: 35px; bottom: 5em; height: 35px; cursor: pointer; background: url(img/gotopbtn.png) no-repeat; display:none;}
+.lc-focus-box {position: relative; margin: 0.5em 0.5em 0;}
+.lc-focus-box .bx-wrapper {position: relative; height: 10.5em;  margin: 0 auto; overflow: hidden;}
+.lc-focus-box .ui-slider { width: 100%; height: 10.5em; overflow: hidden; }
+.lc-focus-box .focus-box img { width: 100%; height: auto; }
+.lc-focus-box .ui-slider li h5 { position: absolute; top: 8.5em; width: 100%; height: 2em; line-height: 2em; padding-right: 3.5em; color: #fff; font-size: 1em; text-align: left; font-weight: normal; text-indent: 0.8em; background: rgba(0,0,0,0.5); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.lc-focus-box .bx-pager { position: absolute; top: 9em; right: 0.8em; z-index: 999; color: #f60; }
+.lc-box {margin-top: 0.5em;}
+.lc-box-title {height: 2.5em; line-height: 2.3em; padding: 0 0.5em; border-top:0.2em solid #c96;background: #f9f5f1;font-weight: bold; color: #c83c23;}
+.lc-box-title {border-color: #c83c23; background: #fbd9d2;}
+.lc-box-body {padding: 0 0.5em 0.5em; background: #fff;}
+.lc-box-body .f-l {float:left;}
+.lc-box-body ul li {height: 2.5em; line-height: 2.5em; border-bottom: 0.1em solid #ead0cb; overflow: hidden;}
+.lc-box-body ul li a {display:inline-block; width:95%; padding-left: 0.5em; white-space: nowrap; -o-text-overflow: ellipsis; text-overflow: ellipsis; overflow:hidden;}
+.lc-box-body .c-o {color:orange;}
+.lc-box-body .c-r {color:red;}
+.lc-box-body .c-p {color:purple;}
+.lc-box-body .f-w-b {font-weight:bold;}
+.lc-box-col-xs3 {margin-top: 0.5em; background: #fff;}
+.lc-box-col-xs3 ul li a {display:inline-block; width: 100%; line-height: 1.8em; padding: 0.5em 0; overflow: hidden;}
+.lc-box-col-xs3 ul li.b-b {border-bottom: 0.1em solid #fdf3e9;}
+.lc-box-col-xs3 ul li.b-r {border-right: 0.1em solid #fdf3e9;}
+.lc-box-col-xs3 .col-xs3 {float:left; width:33.33%; text-align: center;}
+.lc-c-f {zoom: 1;}
+.lc-c-f:after {clear: both; height: 0; font-size: 0; visibility: hidden; display: block; content: " ";}
+.lc-meihong {color: #c52026;}
+.lc-tuhuang {color: #d98a15;}
+.lc-taohong {color: #ff695c;}
+.lc-fenhong {color: #ea68a2;}
+.lc-qingse {color: #51bcee;}
+.lc-qianhong {color: #dc2526;}

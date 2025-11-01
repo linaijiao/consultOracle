@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">易经占卜（8组）</string>
+
+    <string-array name="subjects">
+        <item>反反反(老阳)</item>
+        <item>正正反(少阳)</item>
+        <item>正反正(少阳)</item>
+        <item>反正正(少阳)</item>
+        <item>正正正(老阴)</item>
+        <item>正反反(少阴)</item>
+        <item>反正反(少阴)</item>
+        <item>反反正(少阴)</item>
+    </string-array>
+
+</resources>
