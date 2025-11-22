@@ -1,4 +1,4 @@
-package com.zhouyi.core.engine;
+package com.zhouyi.engine;
 
 public interface IFourPillarsAnalysisService {
 }

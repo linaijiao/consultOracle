@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.google.gson.Gson;
-import com.zhouyi.core.repository.IFourPillarsRepository;
+import com.zhouyi.core.service.IFourPillarsRepository;
 import com.zhouyi.fourpillars.model.FourPillarsResult;
 
 import java.util.ArrayList;

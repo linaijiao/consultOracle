@@ -1,7 +1,7 @@
 package com.zhouyi.fourpillars.service;
 
-import com.zhouyi.core.engine.ICalendarService;
-import com.zhouyi.core.engine.IFourPillarsAnalysisService;
+import com.zhouyi.engine.ICalendarService;
+import com.zhouyi.engine.IFourPillarsAnalysisService;
 import com.zhouyi.core.service.IFourPillarsService;
 import com.zhouyi.fourpillars.data.FourPillarsRepository;
 import com.zhouyi.fourpillars.model.FourPillarsInput;

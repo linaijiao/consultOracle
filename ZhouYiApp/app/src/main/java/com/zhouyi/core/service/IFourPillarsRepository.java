@@ -1,4 +1,4 @@
-package com.zhouyi.core.repository;
+package com.zhouyi.core.service;
 
 import com.zhouyi.fourpillars.model.FourPillarsResult;
 

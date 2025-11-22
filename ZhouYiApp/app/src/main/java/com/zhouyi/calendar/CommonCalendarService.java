@@ -1,4 +1,4 @@
-package com.zhouyi.common.calendar;
+package com.zhouyi.calendar;
 
 public class CommonCalendarService {
 }
