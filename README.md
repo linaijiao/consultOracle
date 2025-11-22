@@ -15,6 +15,12 @@
 
 ## 目录结构
 
+### V1.3修改说明
+- com.zhouyi.calendar          → 专心做历法，干净，可直接抽成独立 library
+- com.zhouyi.domain            → 所有 POJO 统一放这儿，以后紫微斗数也能直接用 Pillar
+- com.zhouyi.engine            → 所有底层算法接口都在这儿，一目了然
+- com.zhouyi.fourpillars.ui    → 只放四柱八字专属的 UI 和转换逻辑
+
 ```text
 ZhouYiApp/
 |
