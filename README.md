@@ -16,10 +16,10 @@
 ## 目录结构
 
 ### V1.3修改说明
-- com.taodev.zhouyi.calendar          → 专心做历法，干净，可直接抽成独立 library
-- com.taodev.zhouyi.domain            → 所有 POJO 统一放这儿，以后紫微斗数也能直接用 Pillar
-- com.taodev.zhouyi.engine            → 所有底层算法接口都在这儿，一目了然
-- com.taodev.zhouyi.fourpillars.ui    → 只放四柱八字专属的 UI 和转换逻辑
+- com.zhouyi.calendar          → 专心做历法，干净，可直接抽成独立 library
+- com.zhouyi.domain            → 所有 POJO 统一放这儿，以后紫微斗数也能直接用 Pillar
+- com.zhouyi.engine            → 所有底层算法接口都在这儿，一目了然
+- com.zhouyi.fourpillars.ui    → 只放四柱八字专属的 UI 和转换逻辑
 
 ```text
 ZhouYiApp/
@@ -32,51 +32,50 @@ ZhouYiApp/
 |   |   |   |
 |   |   |   |-- java/
 |   |   |   |   |-- com/
-|   |   |   |   |   |-- taodev/               <-- 新增中间层
-|   |   |   |   |   |   |-- zhouyi/
+|   |   |   |   |   |-- zhouyi/
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |-- core/                              // 公共异常 + 顶层业务接口
+|   |   |   |   |   |   |   |-- exception/
+|   |   |   |   |   |   |   |   └── CalculationException.java      // 林娇娇
 |   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |-- core/                              // 公共异常 + 顶层业务接口
-|   |   |   |   |   |   |   |   |-- exception/
-|   |   |   |   |   |   |   |   |   └── CalculationException.java      // 林娇娇
-|   |   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |   └── service/                       // 李博定义并实现
-|   |   |   |   |   |   |   |       ├── IFourPillarsService.java         // 李博
-|   |   |   |   |   |   |   |       └── IFourPillarsRepository.java      // 李博
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |-- domain/                            // 所有实体类（POJO）—— 崔炎朋定义
-|   |   |   |   |   |   |   |   ├── Pillar.java                     // 崔炎朋
-|   |   |   |   |   |   |   |   ├── LuckPillar.java                 // 崔炎朋
-|   |   |   |   |   |   |   |   ├── FourPillarsInput.java           // 崔炎朋
-|   |   |   |   |   |   |   |   ├── FourPillarsResult.java          // 崔炎朋
-|   |   |   |   |   |   |   |   ├── FourPillarsChart.java           // 崔炎朋
-|   |   |   |   |   |   |   |   └── ...（其他实体类）               // 崔炎朋
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |-- engine/                            // 引擎层接口 —— 崔炎朋定义
-|   |   |   |   |   |   |   |   ├── ICalendarService.java               // 崔炎朋
-|   |   |   |   |   |   |   |   └── IFourPillarsAnalysisService.java    // 崔炎朋
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |-- calendar/                          // 通用历法引擎实现 —— 崔炎朋
-|   |   |   |   |   |   |   |   └── CommonCalendarService.java          // 崔炎朋
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |-- fourpillars/
-|   |   |   |   |   |   |       |
-|   |   |   |   |   |   |       ├── analysis/                      // 八字分析引擎实现 —— 崔炎朋
-|   |   |   |   |   |   |       |   └── FourPillarsAnalysisService.java // 崔炎朋
-|   |   |   |   |   |   |       |
-|   |   |   |   |   |   |       ├── data/                          // 数据仓库 —— 李博
-|   |   |   |   |   |   |       |   └── FourPillarsRepository.java       // 李博
-|   |   |   |   |   |   |       |
-|   |   |   |   |   |   |       ├── service/                       // 门面/业务组装层 —— 李博
-|   |   |   |   |   |   |       |   └── FourPillarsService.java          // 李博
-|   |   |   |   |   |   |       |
-|   |   |   |   |   |   |       └── ui/                            // UI + ViewModel + Adapter —— 林娇娇
-|   |   |   |   |   |   |           ├── FourPillarsActivity.java         // 林娇娇
-|   |   |   |   |   |   |           ├── FourPillarsViewModel.java        // 林娇娇
-|   |   |   |   |   |   |           ├── FourPillarsInputUiModel.java     // 林娇娇
-|   |   |   |   |   |   |           ├── FourPillarsDisplayModel.java     // 林娇娇
-|   |   |   |   |   |   |           ├── DisplayConverter.java            // 林娇娇
-|   |   |   |   |   |   |           └── adapter/
-|   |   |   |   |   |   |               └── LuckPillarAdapter.java       // 林娇娇
+|   |   |   |   |   |   |   └── service/                       // 李博定义并实现
+|   |   |   |   |   |   |       ├── IFourPillarsService.java         // 李博
+|   |   |   |   |   |   |       └── IFourPillarsRepository.java      // 李博
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |-- domain/                            // 所有实体类（POJO）—— 崔炎朋定义
+|   |   |   |   |   |   |   ├── Pillar.java                     // 崔炎朋
+|   |   |   |   |   |   |   ├── LuckPillar.java                 // 崔炎朋
+|   |   |   |   |   |   |   ├── FourPillarsInput.java           // 崔炎朋
+|   |   |   |   |   |   |   ├── FourPillarsResult.java          // 崔炎朋
+|   |   |   |   |   |   |   ├── FourPillarsChart.java           // 崔炎朋
+|   |   |   |   |   |   |   └── ...（其他实体类）               // 崔炎朋
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |-- engine/                            // 引擎层接口 —— 崔炎朋定义
+|   |   |   |   |   |   |   ├── ICalendarService.java               // 崔炎朋
+|   |   |   |   |   |   |   └── IFourPillarsAnalysisService.java    // 崔炎朋
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |-- calendar/                          // 通用历法引擎实现 —— 崔炎朋
+|   |   |   |   |   |   |   └── CommonCalendarService.java          // 崔炎朋
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |-- fourpillars/
+|   |   |   |   |   |       |
+|   |   |   |   |   |       ├── analysis/                      // 八字分析引擎实现 —— 崔炎朋
+|   |   |   |   |   |       |   └── FourPillarsAnalysisService.java // 崔炎朋
+|   |   |   |   |   |       |
+|   |   |   |   |   |       ├── data/                          // 数据仓库 —— 李博
+|   |   |   |   |   |       |   └── FourPillarsRepository.java       // 李博
+|   |   |   |   |   |       |
+|   |   |   |   |   |       ├── service/                       // 门面/业务组装层 —— 李博
+|   |   |   |   |   |       |   └── FourPillarsService.java          // 李博
+|   |   |   |   |   |       |
+|   |   |   |   |   |       └── ui/                            // UI + ViewModel + Adapter + Converter —— 林娇娇
+|   |   |   |   |   |           ├── FourPillarsActivity.java         // 林娇娇
+|   |   |   |   |   |           ├── FourPillarsViewModel.java        // 林娇娇
+|   |   |   |   |   |           ├── FourPillarsInputUiModel.java     // 林娇娇（可选：用户输入模型）
+|   |   |   |   |   |           ├── FourPillarsDisplayModel.java     // 林娇娇（可选：展示输出模型）
+|   |   |   |   |   |           ├── DisplayConverter.java            // 林娇娇（可选：输入输出转换辅助类）
+|   |   |   |   |   |           └── adapter/
+|   |   |   |   |   |               └── LuckPillarAdapter.java       // 林娇娇
 |   |   |   |
 |   |   |   |-- res/
 |   |   |   |   └── layout/                              // 林娇娇负责所有XML
@@ -91,7 +90,7 @@ ZhouYiApp/
 |   |   |       └── fourpillars_rules.json
 |   |   |
 |   |   |-- test/
-|   |       └── java/com/taodev/zhouyi/...  <-- 测试包名也要记得对应修改
+|   |       └── java/com/zhouyi/...
 |   |           ├── calendar/
 |   |           │   └── CommonCalendarServiceTest.java       // 崔炎朋
 |   |           └── fourpillars/analysis/
