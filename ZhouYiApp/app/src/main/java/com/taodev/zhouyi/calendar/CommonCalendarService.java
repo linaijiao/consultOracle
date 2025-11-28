@@ -11,8 +11,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,7 +61,7 @@ public class CommonCalendarService implements ICalendarService {
     /**
      *
      * @param input  输入DTO,本地时间（用户填的生日+时辰），时区（出生地点），经度（真太阳时必备）
-     * @return
+     * @return 修正后的太阳时间
      */
     @Override
     public Date getTrueSolarTime(FourPillarsInput input) {
@@ -102,7 +100,7 @@ public class CommonCalendarService implements ICalendarService {
     /**
      *
      * @param input 输入DTO,真太阳时
-     * @return
+     * @return 年柱
      */
     @Override
     public Pillar getYearPillar(FourPillarsInput input) {
