@@ -3,17 +3,20 @@ plugins {
 }
 
 android {
-    namespace 'com.bhcj.telling'
-    compileSdk 34  // 建议使用 34 而不是 36
+    // 1. 修改命名空间，使其与你的文件目录结构 com.taodev.zhouyi 保持一致
+    namespace 'com.taodev.zhouyi'
+
+    compileSdk = 34
 
     defaultConfig {
-        applicationId "com.bhcj.telling"
-//        minSdk 21
-        targetSdk 34  // 同步更新
+        // 2. 修改应用ID，这决定了应用安装在手机上的唯一标识
+        applicationId "com.taodev.zhouyi" // 或者保持 "com.bhcj.telling" 如果你想覆盖旧应用，但建议改成新的
+        minSdk 26
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // ... 其他配置
     }
 
     buildTypes {
@@ -22,9 +25,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+// 3. 显式指定 Java 编译版本 (非常重要，见下文解释)
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
