@@ -10,8 +10,7 @@ android {
 
     defaultConfig {
         // 2. 修改应用ID，这决定了应用安装在手机上的唯一标识
-        applicationId "com.taodev.zhouyi" // 或者保持 "com.bhcj.telling" 如果你想覆盖旧应用，但建议改成新的
-        minSdk 26
+        applicationId "com.taodev.zhouyi"
         targetSdk 34
         versionCode 1
         versionName "1.0"
