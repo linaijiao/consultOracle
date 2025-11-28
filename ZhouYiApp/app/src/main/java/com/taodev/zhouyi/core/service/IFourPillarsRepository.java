@@ -1,6 +1,6 @@
-package com.zhouyi.core.service;
+package com.taodev.zhouyi.core.service;
 
-import com.zhouyi.fourpillars.model.FourPillarsResult;
+import com.taodev.zhouyi.fourpillars.model.FourPillarsResult;
 
 import java.util.Date;
 import java.util.List;
