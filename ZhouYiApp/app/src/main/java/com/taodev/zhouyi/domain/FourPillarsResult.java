@@ -1,4 +1,4 @@
-package com.zhouyi.domain;
+package com.taodev.zhouyi.domain;
 
 public class FourPillarsResult {
 }
