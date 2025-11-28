@@ -7,7 +7,7 @@
 **开发团队**（3人小分队）：
 - 崔炎朋：所有算法引擎 + 接口 + POJO（核心）
 - 李博：FourPillarsService、Repository、assets 数据
-- 林娇娇：页面、ViewModel、XML、数据转换
+- 林爱娇：页面、ViewModel、XML、数据转换
 
 ## 当前状态
 - 所有设计文档已更新到 V1.3 并统一
@@ -37,7 +37,7 @@ ZhouYiApp/
 |   |   |   |   |   |   |   |
 |   |   |   |   |   |   |   |-- core/                              // 公共异常 + 顶层业务接口
 |   |   |   |   |   |   |   |   |-- exception/
-|   |   |   |   |   |   |   |   |   └── CalculationException.java      // 林娇娇
+|   |   |   |   |   |   |   |   |   └── CalculationException.java      // 林爱娇
 |   |   |   |   |   |   |   |   |
 |   |   |   |   |   |   |   |   └── service/                       // 李博定义并实现
 |   |   |   |   |   |   |   |       ├── IFourPillarsService.java         // 李博
@@ -69,17 +69,17 @@ ZhouYiApp/
 |   |   |   |   |   |   |       ├── service/                       // 门面/业务组装层 —— 李博
 |   |   |   |   |   |   |       |   └── FourPillarsService.java          // 李博
 |   |   |   |   |   |   |       |
-|   |   |   |   |   |   |       └── ui/                            // UI + ViewModel + Adapter —— 林娇娇
-|   |   |   |   |   |   |           ├── FourPillarsActivity.java         // 林娇娇
-|   |   |   |   |   |   |           ├── FourPillarsViewModel.java        // 林娇娇
-|   |   |   |   |   |   |           ├── FourPillarsInputUiModel.java     // 林娇娇
-|   |   |   |   |   |   |           ├── FourPillarsDisplayModel.java     // 林娇娇
-|   |   |   |   |   |   |           ├── DisplayConverter.java            // 林娇娇
+|   |   |   |   |   |   |       └── ui/                            // UI + ViewModel + Adapter —— 林爱娇
+|   |   |   |   |   |   |           ├── FourPillarsActivity.java         // 林爱娇
+|   |   |   |   |   |   |           ├── FourPillarsViewModel.java        // 林爱娇
+|   |   |   |   |   |   |           ├── FourPillarsInputUiModel.java     // 林爱娇
+|   |   |   |   |   |   |           ├── FourPillarsDisplayModel.java     // 林爱娇
+|   |   |   |   |   |   |           ├── DisplayConverter.java            // 林爱娇
 |   |   |   |   |   |   |           └── adapter/
-|   |   |   |   |   |   |               └── LuckPillarAdapter.java       // 林娇娇
+|   |   |   |   |   |   |               └── LuckPillarAdapter.java       // 林爱娇
 |   |   |   |
 |   |   |   |-- res/
-|   |   |   |   └── layout/                              // 林娇娇负责所有XML
+|   |   |   |   └── layout/                              // 林爱娇负责所有XML
 |   |   |   |       ├── activity_fourpillars_input.xml
 |   |   |   |       ├── activity_fourpillars_result.xml
 |   |   |   |       └── item_luck_pillar.xml
