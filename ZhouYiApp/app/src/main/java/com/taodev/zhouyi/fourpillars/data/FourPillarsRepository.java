@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.google.gson.Gson;
 import com.taodev.zhouyi.core.service.IFourPillarsRepository;
-import com.taodev.zhouyi.fourpillars.model.FourPillarsResult;
+import com.taodev.zhouyi.domain.FourPillarsResult;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +22,8 @@ import java.util.List;
  */
 public class FourPillarsRepository implements IFourPillarsRepository {
     // 数据库帮助类：管理数据库连接和表结构
+
+
     private final DatabaseHelper dbHelper;
     // JSON序列化工具：用于结果对象的存储与恢复
     private final Gson gson = new Gson();
