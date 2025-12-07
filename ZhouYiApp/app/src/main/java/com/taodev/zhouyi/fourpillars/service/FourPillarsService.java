@@ -1,16 +1,23 @@
 package com.taodev.zhouyi.fourpillars.service;
 
+import android.util.Log;
+
+import com.taodev.zhouyi.core.service.IFourPillarsService;
+import com.taodev.zhouyi.domain.FourPillarsInput;
+import com.taodev.zhouyi.domain.FourPillarsResult;
+import com.taodev.zhouyi.domain.LuckPillar;
+import com.taodev.zhouyi.domain.Pillar;
 import com.taodev.zhouyi.engine.ICalendarService;
 import com.taodev.zhouyi.engine.IFourPillarsAnalysisService;
-import com.taodev.zhouyi.core.service.IFourPillarsService;
 import com.taodev.zhouyi.fourpillars.data.FourPillarsRepository;
-import com.taodev.zhouyi.fourpillars.model.FourPillarsInput;
-import com.taodev.zhouyi.fourpillars.model.FourPillarsResult;
-import com.taodev.zhouyi.fourpillars.model.Pillar;
-import com.taodev.zhouyi.fourpillars.model.LuckPillar;
+import javax.inject.Inject;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 四柱八字服务实现类
@@ -21,6 +28,7 @@ import java.util.List;
  * @since 2025-11-22
  */
 public class FourPillarsService implements IFourPillarsService {
+    private static final String TAG = "FourPillarsService";
     // 日历服务：提供时间转换、节气计算和干支查询功能
     private final ICalendarService calendarService;
     // 分析服务：提供命理分析算法（大运、五行、十神等）
@@ -35,6 +43,7 @@ public class FourPillarsService implements IFourPillarsService {
      * @param analysisService 分析服务实例，提供命理算法实现
      * @param repository      数据仓库实例，提供结果存储能力
      */
+    @Inject
     public FourPillarsService(ICalendarService calendarService,
                               IFourPillarsAnalysisService analysisService,
                               FourPillarsRepository repository) {
@@ -43,8 +52,8 @@ public class FourPillarsService implements IFourPillarsService {
         this.repository = repository;
     }
 
-    /**
-     * 计算完整的四柱八字命盘
+     /**
+       * 计算完整的四柱八字命盘
      * 包含核心流程：时间标准化→四柱计算→大运排盘→命理分析→结果组装
      * 所有时间计算基于真太阳时和UTC时间，确保跨时区准确性
      *
@@ -55,28 +64,32 @@ public class FourPillarsService implements IFourPillarsService {
     @Override
     public FourPillarsResult calculateFourPillars(FourPillarsInput input) {
         // 时间标准化：转换为UTC时间消除时区差异
-        Date utcDate = calendarService.createUTCDate(input.getYear(), input.getMonth(),
-                input.getDay(), input.getHour(), input.getMinute(), input.getTimezone());
+        LocalDateTime inputDateTime = input.getLocalDateTime();
+        LocalDateTime localDateTime = LocalDateTime.of(inputDateTime.getYear(), inputDateTime.getMonthValue(),
+                inputDateTime.getDayOfMonth(), inputDateTime.getHour(), inputDateTime.getMinute());
+        Instant instant = localDateTime.atZone(ZoneId.of("UTC")).toInstant();
+        Date utcDate = Date.from(instant);
+        Log.d(TAG, "Converted input to UTC date: " + utcDate);
         // 真太阳时校正：根据经度调整平太阳时，获取真实天文时间
-        Date trueSolarTime = calendarService.getTrueSolarTime(utcDate, input.getLongitude());
+        Date trueSolarTime = calendarService.getTrueSolarTime(input);
 
         // 四柱计算：基于真太阳时依次计算年柱、月柱、日柱、时柱
-        Pillar yearPillar = calendarService.getYearPillar(trueSolarTime);
-        Pillar monthPillar = calendarService.getMonthPillar(trueSolarTime);
-        Pillar dayPillar = calendarService.getDayPillar(trueSolarTime);
-        Pillar hourPillar = calendarService.getHourPillar(trueSolarTime);
+        Pillar yearPillar = calendarService.getYearPillar(input);
+        Pillar monthPillar = calendarService.getMonthPillar(input);
+        Pillar dayPillar = calendarService.getDayPillar(input);
+        Pillar hourPillar = calendarService.getHourPillar(input);
+        Log.d(TAG, "Calculated pillars - Year: " + yearPillar + ", Month: " + monthPillar + ", Day: " + dayPillar + ", Hour: " + hourPillar);
 
         // 大运排盘：根据性别和出生时间推算大运周期（每10年一步运）
-        List<LuckPillar> luckPillars = analysisService.getLuckPillars(
-                yearPillar, monthPillar, trueSolarTime, input.isMale());
+        List<LuckPillar> luckPillars = analysisService.calculateLuckPillars(
+                yearPillar, monthPillar, input.getGender() == FourPillarsInput.Gender.MALE, 0);
 
         // 五行旺衰分析：基于四柱干支组合分析五行力量分布
-        String strengthAnalysis = analysisService.analyzeStrength(
-                yearPillar, monthPillar, dayPillar, hourPillar);
+        String strengthAnalysis = analysisService.analyzeBodyStrength(
+                new Pillar[]{yearPillar, monthPillar, dayPillar, hourPillar});
 
         // 十神关系计算：以日柱天干为日主，分析其他干支的十神属性
-        var tenGods = analysisService.getTenGods(dayPillar.getHeavenlyStem(),
-                yearPillar, monthPillar, dayPillar, hourPillar);
+        Map<String, Integer> tenGods = analysisService.calculateTenGods(dayPillar, new Pillar[]{yearPillar, monthPillar, dayPillar, hourPillar});
 
         // 结果组装：整合所有计算结果为统一数据模型
         FourPillarsResult result = new FourPillarsResult();
@@ -84,13 +97,19 @@ public class FourPillarsService implements IFourPillarsService {
         result.setYearPillar(yearPillar);
         result.setMonthPillar(monthPillar);
         result.setDayPillar(dayPillar);
-        result.setHourPillar(hourPillar);
-        result.setLuckPillars(luckPillars);
-        result.setStrengthAnalysis(strengthAnalysis);
-        result.setTenGods(tenGods);
+        try {
+            result.setHourPillar(hourPillar);
+            result.setLuckPillars(luckPillars);
+            result.setStrengthAnalysis(strengthAnalysis);
+            result.setTenGods(tenGods);
 
-        return result;
+            return result;
+        } catch (Exception e) {
+            Log.e(TAG, "Error calculating four pillars", e);
+            throw new RuntimeException("Calculation failed: " + e.getMessage(), e);
+        }
     }
+    
 
     /**
      * 保存八字计算结果到本地数据库
@@ -101,7 +120,18 @@ public class FourPillarsService implements IFourPillarsService {
      */
     @Override
     public boolean saveFourPillarsResult(FourPillarsResult result) {
-        return repository.save(result);
+        if (result == null || result.getDayPillar() == null) {
+            Log.e(TAG, "Cannot save invalid result");
+            return false;
+        }
+        try {
+            boolean saved = repository.save(result);
+            Log.d(TAG, "Result saved successfully: " + saved);
+            return saved;
+        } catch (Exception e) {
+            Log.e(TAG, "Error saving result", e);
+            return false;
+        }
     }
 
     /**
@@ -113,6 +143,20 @@ public class FourPillarsService implements IFourPillarsService {
      */
     @Override
     public FourPillarsResult getHistoricalResult(Date birthDate) {
-        return repository.getByBirthDate(birthDate);
+        Log.d(TAG, "Retrieving historical result for date: " + birthDate);
+        if (birthDate == null) {
+            Log.e(TAG, "Birth date parameter is null");
+            return null;
+        }
+        try {
+            // Convert legacy Date to modern LocalDateTime
+            LocalDateTime birthDateTime = LocalDateTime.ofInstant(
+                birthDate.toInstant(), ZoneId.systemDefault());
+            Log.d(TAG, "Converted birth date to LocalDateTime: " + birthDateTime);
+            return repository.getByBirthDate(birthDate);
+        } catch (Exception e) {
+            Log.e(TAG, "Error retrieving historical result", e);
+            return null;
+        }
     }
 }
