@@ -27,9 +27,10 @@ public class FourPillarsInput {
         return timezoneIdStr;
     }
 
-    public void setTimezoneId(String timezoneId) {
-        this.timezoneId = timezoneId;
+    public void setTimezoneIdStr(String timezoneIdStr) {
+        this.timezoneIdStr = timezoneIdStr;
     }
+
 
     public double getLongitude() {
         return longitude;
