@@ -1,4 +1,24 @@
-public class BaziCalculatorActivity extends AppCompatActivity {
+package com.zhouyi.fourpillars.ui;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.content.Intent;
+import android.widget.Spinner;
+import android.widget.RadioGroup;
+import android.widget.ArrayAdapter;
+import java.util.Calendar;
+import android.widget.TextView;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.DialogInterface;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+public class FourPillarsActivity extends AppCompatActivity {
 
     private RadioGroup genderGroup;
     private RadioGroup calendarGroup;
@@ -22,7 +42,7 @@ public class BaziCalculatorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bazi_calculator);
+        setContentView(R.layout.activity_fourpillars_input);
 
         initViews();
         setupSpinner();
