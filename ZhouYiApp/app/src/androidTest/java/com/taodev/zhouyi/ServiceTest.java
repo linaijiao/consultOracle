@@ -32,7 +32,7 @@ public class ServiceTest {
         inputBefore.setLongitude(120.0); // 北京时间经度
         inputBefore.setTimezoneIdStr("Asia/Shanghai"); // 如果你的 Input 需要时区
 
-         Pillar yearPillarBefore = service.getYearPillar(inputBefore);
+        Pillar yearPillarBefore = service.getYearPillar(inputBefore);
         System.out.println("2024-02-03 (立春前) 计算结果: " + yearPillarBefore.getStem() + yearPillarBefore.getBranch());
 
         // 断言：应该是 癸(Gui) 卯(Mao)
@@ -46,6 +46,7 @@ public class ServiceTest {
         FourPillarsInput inputAfter = new FourPillarsInput();
         inputAfter.setLocalDateTime(LocalDateTime.of(2024, 2, 5, 12, 0));
         inputAfter.setLongitude(120.0);
+        inputAfter.setTimezoneIdStr("Asia/Shanghai"); // 如果你的 Input 需要时区
 
         Pillar yearPillarAfter = service.getYearPillar(inputAfter);
         System.out.println("2024-02-05 (立春后) 计算结果: " + yearPillarAfter.getStem() + yearPillarAfter.getBranch());
