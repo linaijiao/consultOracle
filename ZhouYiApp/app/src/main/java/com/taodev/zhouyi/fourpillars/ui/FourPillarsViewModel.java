@@ -1,5 +1,5 @@
 package com.taodev.zhouyi.fourpillars.ui;
-
+import com.taodev.zhouyi.R;
 import android.os.Bundle;
 import android.widget.TextView;
 
