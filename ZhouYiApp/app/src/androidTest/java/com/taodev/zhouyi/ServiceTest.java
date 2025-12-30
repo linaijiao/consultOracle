@@ -53,7 +53,7 @@ public class ServiceTest {
         // 断言：应该是 甲(Jia) 辰(Chen)
         assertEquals("甲", yearPillarAfter.getStem());
         assertEquals("辰", yearPillarAfter.getBranch());
-        System.out.println("✅ Service 创建成功: " + service);
+        System.out.println("Service 创建成功: " + service);
 
     }
 }
