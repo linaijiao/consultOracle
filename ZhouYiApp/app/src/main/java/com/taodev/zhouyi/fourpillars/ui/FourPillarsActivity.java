@@ -1,4 +1,5 @@
 package com.taodev.zhouyi.fourpillars.ui;
+import com.taodev.zhouyi.R;
 
 import android.content.Intent;
 import android.os.Bundle;
