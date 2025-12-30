@@ -1,230 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="#f5f5f5">
+    tools:context=".FourPillarsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- 标题栏 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="20dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="华易网"
-                android:textSize="18sp"
-                android:textColor="#333333"
-                android:textStyle="bold"
-                android:gravity="center" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="四柱八字排盘"
-                android:textSize="16sp"
-                android:textColor="#666666"
-                android:gravity="center" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="三命通会"
-                android:textSize="14sp"
-                android:textColor="#666666"
-                android:gravity="center" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="专业排盘"
-                android:textSize="14sp"
-                android:textColor="#666666"
-                android:gravity="center" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="干支关系"
-                android:textSize="14sp"
-                android:textColor="#666666"
-                android:gravity="center" />
-        </LinearLayout>
-
-        <!-- 性别选择 -->
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="四柱八字排盘"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="性别"
-            android:textSize="16sp"
-            android:textColor="#333333"
-            android:layout_marginBottom="8dp" />
-
-        <RadioGroup
-            android:id="@+id/genderGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
-
-            <RadioButton
-                android:id="@+id/maleRadio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="男"
-                android:minHeight="48dp"
-                android:textSize="14sp" />
-
-            <RadioButton
-                android:id="@+id/femaleRadio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="女"
-                android:minHeight="48dp"
-                android:textSize="14sp" />
-        </RadioGroup>
-
-        <!-- 日历类型 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="日历类型"
-            android:textSize="16sp"
-            android:textColor="#333333"
-            android:layout_marginBottom="8dp" />
-
-        <RadioGroup
-            android:id="@+id/calendarGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
-
-            <RadioButton
-                android:id="@+id/gregorianRadio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="公历"
-                android:textSize="14sp"
-                android:minHeight="48dp"
-                android:checked="true" />
-
-            <RadioButton
-                android:id="@+id/lunarRadio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="农历"
-                android:minHeight="48dp"
-                android:textSize="14sp" />
-        </RadioGroup>
-
-        <!-- 出生日期 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="出生日期"
-            android:textSize="16sp"
-            android:textColor="#333333"
-            android:layout_marginBottom="8dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/edittext_background"
-            android:padding="12dp"
-            android:layout_marginBottom="16dp">
-
-            <TextView
-                android:id="@+id/dateLabel"
+            android:hint="命主姓名">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="新历：1995年01月31日"
-                android:textSize="14sp"
-                android:textColor="#333333" />
+                android:inputType="textPersonName"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <RadioGroup
+            android:id="@+id/radioGroupGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButtonMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="男性"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="女性"/>
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/radioGroupTrueTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButtonNoTrueTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不使用"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonTrueTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="使用"/>
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinnerProvince"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/province_array"/>
+
+            <Spinner
+                android:id="@+id/spinnerCity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
         </LinearLayout>
 
-        <!-- 出生时辰 -->
-        <TextView
+        <RadioGroup
+            android:id="@+id/radioGroupCalendarType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="出生时辰"
-            android:textSize="16sp"
-            android:textColor="#333333"
-            android:layout_marginBottom="8dp" />
+            android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/timeSpinner"
+            <RadioButton
+                android:id="@+id/radioButtonSolar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="阳历"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonLunar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="阴历"/>
+            <RadioButton
+                android:id="@+id/radioButtonEightChar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="八字反推"/>
+        </RadioGroup>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittext_background"
-            android:padding="12dp"
-            android:minHeight="48dp"
-            android:layout_marginBottom="16dp" />
+            android:orientation="horizontal">
 
-        <!-- 出生地址 -->
-        <TextView
+            <Spinner
+                android:id="@+id/spinnerYear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Spinner
+                android:id="@+id/spinnerMonth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Spinner
+                android:id="@+id/spinnerDay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="出生地址"
-            android:textSize="16sp"
-            android:textColor="#333333"
-            android:layout_marginBottom="8dp" />
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/locationEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请选择出生地点（选填）"
-            android:textSize="14sp"
-            android:background="@drawable/edittext_background"
-            android:padding="12dp"
-            android:minHeight="48dp"
-            android:layout_marginBottom="24dp" />
+            <Spinner
+                android:id="@+id/spinnerHour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-        <!-- 开始排盘按钮 -->
+            <Spinner
+                android:id="@+id/spinnerMinute"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
         <Button
-            android:id="@+id/calculateButton"
+            android:id="@+id/buttonSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="开始排盘"
-            android:textSize="16sp"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/button_background"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- 一生命运精批 -->
-        <TextView
-            android:id="@+id/destinyText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="一生命运精批"
-            android:textSize="16sp"
-            android:textColor="#E91E63"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:padding="12dp" />
+            android:backgroundTint="#F0AD4E"/>
 
     </LinearLayout>
-
 </ScrollView>
