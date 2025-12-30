@@ -1,6 +1,7 @@
 package com.taodev.zhouyi.calendar;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.taodev.zhouyi.domain.BaziRules;
 import com.taodev.zhouyi.domain.FourPillarsInput;
@@ -39,11 +40,11 @@ public class CommonCalendarService implements ICalendarService {
 
     // 1. 快捷入口添加构造函数，强制要求传入 Context
     public CommonCalendarService(Context context) {
-        // 使用 getApplicationContext() 防止内存泄漏
-        this.context = context.getApplicationContext();
-        new TimeConverter();
-        // 初始化时加载数据（只跑一次）
-        loadEotData();
+            // 使用 getApplicationContext() 防止内存泄漏
+            this.context = context.getApplicationContext();
+            this.timeConverter = new TimeConverter();
+            // 初始化时加载数据（只跑一次）
+            loadEotData();
     }
     // 2. 【主入口】全参数
     // 场景：依赖注入、单元测试、或者需要自定义转换器逻辑时用这个
@@ -55,10 +56,18 @@ public class CommonCalendarService implements ICalendarService {
     // 读取文件
     private void loadEotData() {
         // context 从 Repository 传
-        try (InputStream is = context.getAssets().open("eot.json")) {
+        try (InputStream is = context.getAssets().open("eot/eot.json")) {
             Gson gson = new Gson();
-            Type mapType = new TypeToken<Map<String, Double>>() {}.getType();
-            eotCache = gson.fromJson(new InputStreamReader(is), mapType);
+            //把整个文件解析成一个大 JSON 对象 (JsonObject)
+            JsonObject jsonObject = gson.fromJson(new InputStreamReader(is), JsonObject.class);
+            if (jsonObject.has("equationOfTime")) {
+                JsonObject eotData = jsonObject.getAsJsonObject("equationOfTime");
+                Type mapType = new TypeToken<Map<String, Double>>() {}.getType();
+                eotCache = gson.fromJson(eotData, mapType);
+            }else{
+                // 防止字段不存在
+                eotCache = new HashMap<>();
+            }
         } catch (IOException e) {
             e.printStackTrace();
             // 失败时防止空指针
@@ -99,7 +108,10 @@ public class CommonCalendarService implements ICalendarService {
         // 将时间格式化为 key，例如 "2025-11-27"
         // 注意： date.toString()，这可能包含时间，key 会匹配不上
         // LocalDate 再 toString
-        String dateKey = localDateTime.toLocalDate().toString();
+//        String dateKey = localDateTime.toLocalDate().toString();
+        String dateKey = String.format("%02d-%02d",
+                localDateTime.getMonthValue(),
+                localDateTime.getDayOfMonth());
 
         return eotCache.getOrDefault(dateKey, 0.0);
     }
@@ -140,7 +152,7 @@ public class CommonCalendarService implements ICalendarService {
 
             //只加载一次数据
             if (baziRulesCache == null) {
-                baziRulesCache = loadJsonFromAsset("bazi_rules.json", BaziRules.class);
+                baziRulesCache = loadJsonFromAsset("bazi/bazi_rules.json", BaziRules.class);
             }
             // 防止文件读取失败导致空指针
             if (baziRulesCache == null || baziRulesCache.getSexagenaryCycle() == null) {
@@ -236,7 +248,7 @@ public class CommonCalendarService implements ICalendarService {
     private void loadJieQiData() {
         try {
             // 打开文件流
-            InputStream is = context.getAssets().open("jieqi_data.json");
+            InputStream is = context.getAssets().open("jieqi/jieqi_data.json");
 
             // 【修改 3】使用 Gson 解析流
             Gson gson = new Gson();
