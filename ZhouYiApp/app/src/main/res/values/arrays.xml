@@ -1,11 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="province_array">
-        <item>北京</item>
-        <item>上海</item>
-        <item>广东</item>
-        <item>江苏</item>
-        <item>浙江</item>
-        <!-- 添加更多省份 -->
-    </string-array>
+<!-- 省份数组 -->
+<string-array name="province_array">
+    <item>北京市</item>
+    <item>上海市</item>
+    <item>广东省</item>
+    <item>浙江省</item>
+    <item>江苏省</item>
+    <!-- 添加更多省份 -->
+</string-array>
+
+<!-- 北京的城市 -->
+<string-array name="beijing_cities">
+    <item>北京市</item>
+</string-array>
+
+<!-- 北京的区县 -->
+<string-array name="beijing_districts">
+    <item>东城区</item>
+    <item>西城区</item>
+    <item>朝阳区</item>
+    <item>海淀区</item>
+    <item>丰台区</item>
+    <item>石景山区</item>
+</string-array>
+
+<!-- 上海的城市 -->
+<string-array name="shanghai_cities">
+    <item>上海市</item>
+</string-array>
+
+<!-- 上海的区县 -->
+<string-array name="shanghai_districts">
+    <item>黄浦区</item>
+    <item>徐汇区</item>
+    <item>长宁区</item>
+    <item>静安区</item>
+    <item>普陀区</item>
+    <item>虹口区</item>
+</string-array>
+
+<!-- 广东的城市 -->
+<string-array name="guangdong_cities">
+    <item>广州市</item>
+    <item>深圳市</item>
+    <item>珠海市</item>
+    <item>佛山市</item>
+    <item>东莞市</item>
+</string-array>
+
+<!-- 广州的区县 -->
+<string-array name="guangzhou_districts">
+    <item>天河区</item>
+    <item>越秀区</item>
+    <item>海珠区</item>
+    <item>荔湾区</item>
+    <item>白云区</item>
+    <item>黄埔区</item>
+</string-array>
+
+<!-- 深圳的区县 -->
+<string-array name="shenzhen_districts">
+    <item>福田区</item>
+    <item>罗湖区</item>
+    <item>南山区</item>
+    <item>宝安区</item>
+    <item>龙岗区</item>
+    <item>盐田区</item>
+</string-array>
 </resources>
