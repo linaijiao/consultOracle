@@ -65,7 +65,7 @@ public class FourPillarsActivity extends AppCompatActivity {
 
 
 
-        // Initialize Year Spinner
+        // 初始化 Year Spinner
         List<String> years = new ArrayList<>();
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         for (int i = currentYear - 100; i <= currentYear; i++) {
@@ -75,7 +75,7 @@ public class FourPillarsActivity extends AppCompatActivity {
         yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerYear.setAdapter(yearAdapter);
 
-        // Initialize Month Spinner
+        // 初始化 Month Spinner
         List<String> months = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
             months.add(String.valueOf(i));
@@ -84,7 +84,7 @@ public class FourPillarsActivity extends AppCompatActivity {
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMonth.setAdapter(monthAdapter);
 
-        // Initialize Day Spinner
+        // 初始化 Day Spinner
         List<String> days = new ArrayList<>();
         for (int i = 1; i <= 31; i++) {
             days.add(String.valueOf(i));
@@ -93,7 +93,7 @@ public class FourPillarsActivity extends AppCompatActivity {
         dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDay.setAdapter(dayAdapter);
 
-        // Initialize Hour Spinner
+        // 初始化 Hour Spinner
         List<String> hours = new ArrayList<>();
         for (int i = 0; i <= 23; i++) {
             hours.add(String.valueOf(i));
@@ -102,7 +102,7 @@ public class FourPillarsActivity extends AppCompatActivity {
         hourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerHour.setAdapter(hourAdapter);
 
-        // Initialize Minute Spinner
+        // 初始化 Minute Spinner
         List<String> minutes = new ArrayList<>();
         for (int i = 0; i <= 59; i++) {
             minutes.add(String.valueOf(i));
@@ -111,15 +111,11 @@ public class FourPillarsActivity extends AppCompatActivity {
         minuteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMinute.setAdapter(minuteAdapter);
 
-//        // 设置省份数据
-//        ArrayAdapter<CharSequence> provinceAdapter = ArrayAdapter.createFromResource(this,
-//                R.array.province_array, android.R.layout.simple_spinner_item);
-//        provinceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinnerProvince.setAdapter(provinceAdapter);
         //初始化城市数据
         initCiryData();
-        //
+        //设置城市数据
         setupSpinners();
+        //城市下拉监听事件
         setupListeners();
 
 
@@ -291,7 +287,5 @@ public class FourPillarsActivity extends AppCompatActivity {
         spinnerCity.setAdapter(cityAdapter);
         spinnerCity.setSelection(0);
     }
-
-
 
 }
