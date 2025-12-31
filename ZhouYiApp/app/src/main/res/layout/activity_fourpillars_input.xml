@@ -31,7 +31,14 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"/>
         </com.google.android.material.textfield.TextInputLayout>
-
+        <!-- 性别选择 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="性别:"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp" />
         <RadioGroup
             android:id="@+id/radioGroupGender"
             android:layout_width="match_parent"
@@ -51,7 +58,14 @@
                 android:layout_height="wrap_content"
                 android:text="女性"/>
         </RadioGroup>
-
+        <!-- 日历类型 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="日历类型:"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp" />
         <RadioGroup
             android:id="@+id/radioGroupTrueTime"
             android:layout_width="match_parent"
@@ -71,7 +85,14 @@
                 android:layout_height="wrap_content"
                 android:text="使用"/>
         </RadioGroup>
-
+        <!-- 出生地址 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="出生地址:"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,15 +103,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:entries="@array/province_array"/>
+                android:entries="@array/province_array"
+               />
 
             <Spinner
                 android:id="@+id/spinnerCity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                />
         </LinearLayout>
-
+        <!-- 日历类型 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="日历类型:"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp" />
         <RadioGroup
             android:id="@+id/radioGroupCalendarType"
             android:layout_width="match_parent"
@@ -115,7 +145,14 @@
                 android:layout_height="wrap_content"
                 android:text="八字反推"/>
         </RadioGroup>
-
+        <!-- 出生日期 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="出生日期:"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -139,6 +176,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
         </LinearLayout>
+        <!-- 出生时辰 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="出生时辰"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -149,7 +194,8 @@
                 android:id="@+id/spinnerHour"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                />
 
             <Spinner
                 android:id="@+id/spinnerMinute"

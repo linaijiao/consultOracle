@@ -1,71 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!-- 省份数组 -->
-<string-array name="province_array">
-    <item>北京市</item>
-    <item>上海市</item>
-    <item>广东省</item>
-    <item>浙江省</item>
-    <item>江苏省</item>
-    <!-- 添加更多省份 -->
-</string-array>
+    <!-- 省份数组 -->
+    <string-array name="province_array">
+        <item>请选择省份</item>
+        <item>北京市</item>
+        <item>上海市</item>
+        <item>广东省</item>
+        <item>江苏省</item>
+        <item>浙江省</item>
+        <item>四川省</item>
+        <item>湖北省</item>
+        <item>山东省</item>
+    </string-array>
 
-<!-- 北京的城市 -->
-<string-array name="beijing_cities">
-    <item>北京市</item>
-</string-array>
+    <!-- 省份对应的城市数组，注意顺序要与provinces保持一致 -->
 
-<!-- 北京的区县 -->
-<string-array name="beijing_districts">
-    <item>东城区</item>
-    <item>西城区</item>
-    <item>朝阳区</item>
-    <item>海淀区</item>
-    <item>丰台区</item>
-    <item>石景山区</item>
-</string-array>
+    <!-- 北京市 -->
+    <string-array name="cities_beijing">
+        <item>请选择城市</item>
+        <item>北京市</item>
+    </string-array>
 
-<!-- 上海的城市 -->
-<string-array name="shanghai_cities">
-    <item>上海市</item>
-</string-array>
+    <!-- 上海市 -->
+    <string-array name="cities_shanghai">
+        <item>请选择城市</item>
+        <item>上海市</item>
+    </string-array>
 
-<!-- 上海的区县 -->
-<string-array name="shanghai_districts">
-    <item>黄浦区</item>
-    <item>徐汇区</item>
-    <item>长宁区</item>
-    <item>静安区</item>
-    <item>普陀区</item>
-    <item>虹口区</item>
-</string-array>
+    <!-- 广东省 -->
+    <string-array name="cities_guangdong">
+        <item>请选择城市</item>
+        <item>广州市</item>
+        <item>深圳市</item>
+        <item>珠海市</item>
+        <item>佛山市</item>
+        <item>东莞市</item>
+        <item>中山市</item>
+        <item>惠州市</item>
+        <item>汕头市</item>
+        <item>江门市</item>
+    </string-array>
 
-<!-- 广东的城市 -->
-<string-array name="guangdong_cities">
-    <item>广州市</item>
-    <item>深圳市</item>
-    <item>珠海市</item>
-    <item>佛山市</item>
-    <item>东莞市</item>
-</string-array>
+    <!-- 江苏省 -->
+    <string-array name="cities_jiangsu">
+        <item>请选择城市</item>
+        <item>南京市</item>
+        <item>苏州市</item>
+        <item>无锡市</item>
+        <item>常州市</item>
+        <item>徐州市</item>
+        <item>扬州市</item>
+        <item>南通市</item>
+        <item>镇江市</item>
+    </string-array>
 
-<!-- 广州的区县 -->
-<string-array name="guangzhou_districts">
-    <item>天河区</item>
-    <item>越秀区</item>
-    <item>海珠区</item>
-    <item>荔湾区</item>
-    <item>白云区</item>
-    <item>黄埔区</item>
-</string-array>
+    <!-- 浙江省 -->
+    <string-array name="cities_zhejiang">
+        <item>请选择城市</item>
+        <item>杭州市</item>
+        <item>宁波市</item>
+        <item>温州市</item>
+        <item>绍兴市</item>
+        <item>嘉兴市</item>
+        <item>金华市</item>
+        <item>台州市</item>
+    </string-array>
 
-<!-- 深圳的区县 -->
-<string-array name="shenzhen_districts">
-    <item>福田区</item>
-    <item>罗湖区</item>
-    <item>南山区</item>
-    <item>宝安区</item>
-    <item>龙岗区</item>
-    <item>盐田区</item>
-</string-array>
+    <!-- 四川省 -->
+    <string-array name="cities_sichuan">
+        <item>请选择城市</item>
+        <item>成都市</item>
+        <item>绵阳市</item>
+        <item>德阳市</item>
+        <item>宜宾市</item>
+        <item>泸州市</item>
+        <item>乐山市</item>
+        <item>南充市</item>
+    </string-array>
+
+    <!-- 湖北省 -->
+    <string-array name="cities_hubei">
+        <item>请选择城市</item>
+        <item>武汉市</item>
+        <item>宜昌市</item>
+        <item>襄阳市</item>
+        <item>荆州市</item>
+        <item>黄冈市</item>
+        <item>孝感市</item>
+        <item>十堰市</item>
+    </string-array>
+
+    <!-- 山东省 -->
+    <string-array name="cities_shandong">
+        <item>请选择城市</item>
+        <item>济南市</item>
+        <item>青岛市</item>
+        <item>烟台市</item>
+        <item>潍坊市</item>
+        <item>临沂市</item>
+        <item>淄博市</item>
+        <item>济宁市</item>
+    </string-array>
 </resources>
