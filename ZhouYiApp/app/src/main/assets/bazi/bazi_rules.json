@@ -46,7 +46,15 @@
     "戌": ["辛", "丁", "戊"],
     "亥": ["甲", "壬"]
   },
-  
+
+  "monthValidator": [
+    "Lichun", "Jingzhe", "Qingming", "Lixia", "Mangzhong", "Xiaoshu",
+    "Liqiu", "Bailu", "Hanlu", "Lidong", "Daxue", "XiaoHan"
+  ],
+  "monthBranches": [
+    "寅", "卯", "辰", "巳", "午", "未",
+    "申", "酉", "戌", "亥", "子", "丑"
+  ],
   "monthStartRule": {
     "甲": "丙", "乙": "戊", "丙": "庚", "丁": "壬", "戊": "甲",
     "己": "丙", "庚": "戊", "辛": "庚", "壬": "壬", "癸": "甲"
