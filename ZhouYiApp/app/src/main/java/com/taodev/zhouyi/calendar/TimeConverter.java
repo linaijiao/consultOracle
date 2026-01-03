@@ -2,11 +2,26 @@ package com.taodev.zhouyi.calendar;
 
 import com.taodev.zhouyi.domain.FourPillarsInput;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class TimeConverter {
+    private static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    public static LocalDateTime parse(String dateStr) {
+        if (dateStr == null) return null;
+        try {
+            // 使用现代 API 解析
+            return LocalDateTime.parse(dateStr, FORMATTER);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     /**
      * 获取UTC时间
      * @param input DTO输入
