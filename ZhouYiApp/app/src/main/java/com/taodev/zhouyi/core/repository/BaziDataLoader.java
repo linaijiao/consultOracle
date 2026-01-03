@@ -36,9 +36,10 @@ public class BaziDataLoader {
 
     private void initData() {
         // 1. 加载规则 (利用泛型方法)
-        baziRulesCache = loadJsonFromAsset("bazi/bazirules.json", BaziRules.class);
+        baziRulesCache = loadJsonFromAsset("bazi/bazi_rules.json", BaziRules.class);
 
         // 2. 加载节气 (利用的泛型方法)
+        //  "lunar UTC.",
         Type jieQiType = new TypeToken<Map<String, Map<String, String>>>(){}.getType();
         jieQiCache = loadJsonFromAsset("jieqi/jieqi_data.json", jieQiType);
     }
