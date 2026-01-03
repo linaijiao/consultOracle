@@ -136,7 +136,7 @@ public class FourPillarsActivity extends AppCompatActivity {
                 String hour = spinnerHour.getSelectedItem().toString();
                 String minute = spinnerMinute.getSelectedItem().toString();
 
-                // 验证数据（您可以添加更详细的验证）
+                // 验证数据
                 if (name.isEmpty()) {
                     Toast.makeText(FourPillarsActivity.this, "请输入姓名", Toast.LENGTH_SHORT).show();
                     return;
