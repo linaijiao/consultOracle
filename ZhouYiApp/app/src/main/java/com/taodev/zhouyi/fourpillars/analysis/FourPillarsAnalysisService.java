@@ -1,7 +1,6 @@
 package com.taodev.zhouyi.fourpillars.analysis;
 
 import com.taodev.zhouyi.calendar.BaziAttributesCalculator;
-import com.taodev.zhouyi.calendar.CommonCalendarService;
 import com.taodev.zhouyi.calendar.TenGodCalculator;
 import com.taodev.zhouyi.domain.BaziRules;
 import com.taodev.zhouyi.domain.FourPillarsResult;
@@ -10,7 +9,6 @@ import com.taodev.zhouyi.domain.Pillar;
 import com.taodev.zhouyi.engine.IFourPillarsAnalysisService;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +32,8 @@ public class FourPillarsAnalysisService implements IFourPillarsAnalysisService {
     /**
      * 【总入口】 执行完整的排盘分析
      */
-    public FourPillarsResult analyze(FourPillarsResult result) {
+    @Override
+    public void analyze(FourPillarsResult result) {
         // 1. 拿到基础四柱 (假设外面已经填好了 stem/branch)
         Pillar yearP = result.getYearPillar();
         Pillar monthP = result.getMonthPillar();
@@ -57,7 +56,7 @@ public class FourPillarsAnalysisService implements IFourPillarsAnalysisService {
         result.setHourPillar(hourP);
 
         // 3. 计算大运 (使用新逻辑)
-        boolean isMale = "乾造".equals(result.getGender());
+        boolean isMale = "乾造".equals(result.getGender().getLabel());
 
         // 从 Result 里取出之前算好的起运岁数 (例如 4)
         int startAge = result.getStartAge();
@@ -70,7 +69,6 @@ public class FourPillarsAnalysisService implements IFourPillarsAnalysisService {
          String strength = analyzeBodyStrength(new Pillar[]{yearP, monthP, dayP, hourP});
          result.setBodyStrength(strength);
 
-        return result;
     }
     /**
      * 辅助方法：填充单根柱子的所有详细属性
@@ -181,7 +179,7 @@ public class FourPillarsAnalysisService implements IFourPillarsAnalysisService {
             // 这里仅仅是生成大运的干支柱子
             int startYear = i * 10;
 
-            LuckPillar luck = new LuckPillar(nextStem, nextBranch, startYear);
+            LuckPillar luck = new LuckPillar(nextStem, nextBranch, startAge, startYear);
 
             // 计算大运的纳音
             // String tenGod = tenGodCalculator.calculate(yearPillar.getStem(), nextStem); // 这里的参照点看需求
