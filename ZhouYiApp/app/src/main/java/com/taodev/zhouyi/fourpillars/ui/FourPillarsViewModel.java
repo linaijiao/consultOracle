@@ -1,51 +1,65 @@
 package com.taodev.zhouyi.fourpillars.ui;
-import com.taodev.zhouyi.R;
-import android.os.Bundle;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.app.Application;
+import androidx.lifecycle.AndroidViewModel; // 注意：用 AndroidViewModel 才能拿 Context
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
-public class FourPillarsViewModel extends AppCompatActivity {
+import com.taodev.zhouyi.core.repository.BaziDataLoader;
+import com.taodev.zhouyi.domain.BaziRules;
+import com.taodev.zhouyi.domain.FourPillarsInput;
+import com.taodev.zhouyi.domain.FourPillarsResult;
+import com.taodev.zhouyi.facade.BaziFacade;
+import com.taodev.zhouyi.calendar.CommonCalendarService;
+import com.taodev.zhouyi.fourpillars.analysis.FourPillarsAnalysisService;
+import com.taodev.zhouyi.fourpillars.ui.DisplayConverter;
+import com.taodev.zhouyi.fourpillars.ui.FourPillarsDisplayModel;
+import com.taodev.zhouyi.fourpillars.ui.FourPillarsInputUiModel;
 
-    private TextView textViewResult;
+public class FourPillarsViewModel extends AndroidViewModel {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fourpillars_result);
+    // 给 Activity 观察的数据
+    private final MutableLiveData<FourPillarsDisplayModel> displayData = new MutableLiveData<>();
 
-        textViewResult = findViewById(R.id.textViewResult);
+    // 我们的总指挥
+    private BaziFacade baziFacade;
 
-        // 获取传递过来的数据
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String name = extras.getString("name");
-            String gender = extras.getString("gender");
-            String trueTime = extras.getString("trueTime");
-            String province = extras.getString("province");
-            String city = extras.getString("city");
-            String calendarType = extras.getString("calendarType");
-            String year = extras.getString("year");
-            String month = extras.getString("month");
-            String day = extras.getString("day");
-            String hour = extras.getString("hour");
-            String minute = extras.getString("minute");
+    public FourPillarsViewModel(Application application) {
+        super(application);
+        initBaziEngine();
+    }
 
-            // 在这里使用获取到的数据进行八字排盘计算
-            //  （请替换成您自己的八字排盘逻辑）
+    // 1. 初始化引擎 (加载数据、创建服务)
+    private void initBaziEngine() {
+        // A. 加载 JSON 数据 (这里使用了 Context)
+        BaziRules rules = BaziDataLoader.getInstance(getApplication()).getBaziRules();
 
-            String result = "姓名：" + name + "\n" +
-                    "性别：" + gender + "\n" +
-                    "真太阳时：" + trueTime + "\n" +
-                    "出生地：" + province + " " + city + "\n" +
-                    "日期类型：" + calendarType + "\n" +
-                    "出生日期：" + year + "年" + month + "月" + day + "日" + "\n" +
-                    "出生时辰：" + hour + "时" + minute + "分\n\n" +
-                    "八字排盘结果：\n" +
-                    "这里显示您的八字排盘结果...";  //  替换成真实的排盘结果
+        // B. 组装服务
+        CommonCalendarService calendarService = new CommonCalendarService(getApplication());
+        FourPillarsAnalysisService analysisService = new FourPillarsAnalysisService(rules);
 
-            textViewResult.setText(result);
+        // C. 创建 Facade
+        baziFacade = new BaziFacade(calendarService, analysisService);
+    }
 
-        }
+    // 2. 响应用户点击“排盘”
+    public void calculate(FourPillarsInputUiModel uiInput) {
+        // A. 把 UI 模型转成 领域模型 (Input)
+        FourPillarsInput domainInput = new FourPillarsInput(
+                uiInput.year, uiInput.month, uiInput.day, uiInput.hour,uiInput.minute, uiInput.gender
+        );
+
+        // B. 【核心】调用 Facade 进行计算
+        FourPillarsResult result = baziFacade.performFullAnalysis(domainInput);
+
+        // C. 【转换】把计算结果 转成 界面显示模型
+        FourPillarsDisplayModel displayModel = DisplayConverter.convert(result);
+
+        // D. 更新 LiveData，通知 Activity 刷新
+        displayData.setValue(displayModel);
+    }
+
+    public LiveData<FourPillarsDisplayModel> getDisplayData() {
+        return displayData;
     }
 }
