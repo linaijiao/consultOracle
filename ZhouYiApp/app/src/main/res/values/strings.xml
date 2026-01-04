@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">易经占卜（8组）</string>
+    <string name="app_name">四柱八字</string>
 
     <string-array name="subjects">
         <item>反反反(老阳)</item>
