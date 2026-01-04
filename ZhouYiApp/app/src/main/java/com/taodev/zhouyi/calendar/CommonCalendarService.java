@@ -269,7 +269,7 @@ public class CommonCalendarService implements ICalendarService {
 
             // B. 判断是 子月 还是 丑月？关键看 "小寒"
             // 小寒通常在 1月5日或6日，是 子/丑 的分界线
-            String xiaoHanStr = currentYearJieQi.get("xiaohan");
+            String xiaoHanStr = currentYearJieQi.get("XiaoHan");
             LocalDateTime xiaoHanTime = TimeConverter.parse(xiaoHanStr);
 
             int monthStemIndexOffset; // 月份偏移量
