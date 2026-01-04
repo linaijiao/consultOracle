@@ -56,4 +56,42 @@ public class BaziAttributesCalculator {
 
         return "未知";
     }
+    /**
+     * 计算纳音
+     */
+    public String calculateNaYin(String stem, String branch) {
+        // 1. 拼出干支 (比如 "甲" + "子" = "甲子")
+        String stemsAndBranches = stem + branch;
+
+        // 2. 防御性检查
+        if (rules.getNaYin() == null) {
+            return "未知";
+        }
+
+        // 3. 从 JSON 加载的数据里查表
+        return rules.getNaYin().getOrDefault(stemsAndBranches, "未知");
+    }
+    /**
+     * 计算空亡
+     * 算法：(地支索引 - 天干索引)，结果对应空亡地支
+     */
+    public String calculateKongWang(String stem, String branch) {
+        // 1. 获取索引
+        List<String> stems = new java.util.ArrayList<>(rules.getFiveElements().getHeavenlyStems().keySet());
+        List<String> branches = new java.util.ArrayList<>(rules.getFiveElements().getEarthlyBranches().keySet());
+
+        int stemIdx = stems.indexOf(stem);
+        int branchIdx = branches.indexOf(branch);
+
+        if (stemIdx == -1 || branchIdx == -1) return "";
+
+        // 2. 计算差值 (地支 - 天干)
+        // 比如 甲(0)子(0) -> 0 -> 戌亥空
+        // 比如 甲(0)寅(2) -> 2 -> 子丑空
+        // 公式：空亡起点的索引 = (branchIdx - stemIdx + 10) % 12
+        int voidStartIdx = (branchIdx - stemIdx + 10) % 12; // 第一个空亡字
+        int voidEndIdx = (voidStartIdx + 1) % 12;           // 第二个空亡字
+
+        return branches.get(voidStartIdx) + branches.get(voidEndIdx);
+    }
 }
