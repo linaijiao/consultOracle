@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -384,7 +385,51 @@ public class CommonCalendarService implements ICalendarService {
 
         // 5. 组装返回！
         // 顺序：年、月、日、时
-        return new Pillar[] { yearPillar, monthPillar, dayPillar, hourPillar };
+        Pillar[] pillars = new Pillar[] {
+                yearPillar,
+                monthPillar,
+                dayPillar,
+                hourPillar
+        };
+        // ==========================================
+        // 计算藏干和十神
+        // ==========================================
+
+        // 1. 获取日主 (日干) —— 所有十神都是跟它比
+        String dayMaster = dayPillar.getStem();
+
+        // 2. 获取藏干规则 Map
+        Map<String, List<String>> hiddenRules = baziRulesCache.getHiddenStems();
+        TenGodCalculator tenGodCalculator = new TenGodCalculator(baziRulesCache);
+        // 3. 遍历四柱，填充信息
+        for (Pillar pillar : pillars) {
+            // A. 算天干的十神 (注意：日柱的天干十神通常叫"日主"或"元男/女"，也可以显示"比肩")
+            if (pillar == dayPillar) {
+                pillar.setStemTenGod("日主");
+            } else {
+                String tenGod = tenGodCalculator.calculate(dayMaster, pillar.getStem());
+                pillar.setStemTenGod(tenGod);
+            }
+
+            // B. 找地支藏干
+            String branch = pillar.getBranch();
+            List<String> hStems = hiddenRules.get(branch); // 查表
+            List<Pillar.HiddenStemInfo> infos = new ArrayList<>();
+            // C. 算藏干的十神
+            if (hStems != null) {
+                List<String> hTenGods = new ArrayList<>();
+                for (String hStem : hStems) {
+                    // 用日主 vs 藏干
+                    String htengod = tenGodCalculator.calculate(dayMaster, hStem);
+                    Pillar.HiddenStemInfo info = new Pillar.HiddenStemInfo(hStem,htengod);
+                    info.stemName=hStem;
+                    info.tenGodName=htengod;
+                    infos.add(info);
+                }
+            }
+            pillar.setHiddenStems(infos);
+        }
+        return pillars;
     }
 
     /**
