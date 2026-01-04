@@ -107,6 +107,10 @@ public class Pillar {
         public String stemName;
         // 对应的十神 (如 "食神")
         public String tenGodName;
+        public HiddenStemInfo(String stemName, String tenGodName) {
+            this.stemName = stemName;
+            this.tenGodName = tenGodName;
+        }
     }
 
 }
