@@ -5,6 +5,7 @@ import android.util.Log;
 import com.taodev.zhouyi.core.service.IFourPillarsService;
 import com.taodev.zhouyi.domain.FourPillarsInput;
 import com.taodev.zhouyi.domain.FourPillarsResult;
+import com.taodev.zhouyi.domain.Gender;
 import com.taodev.zhouyi.domain.LuckPillar;
 import com.taodev.zhouyi.domain.Pillar;
 import com.taodev.zhouyi.engine.ICalendarService;
@@ -82,7 +83,7 @@ public class FourPillarsService implements IFourPillarsService {
 
         // 大运排盘：根据性别和出生时间推算大运周期（每10年一步运）
         List<LuckPillar> luckPillars = analysisService.calculateLuckPillars(
-                yearPillar, monthPillar, input.getGender() == FourPillarsInput.Gender.MALE, 0);
+                yearPillar, monthPillar, input.getGender() == Gender.FEMALE.MALE, 0);
 
         // 五行旺衰分析：基于四柱干支组合分析五行力量分布
         String strengthAnalysis = analysisService.analyzeBodyStrength(
@@ -94,9 +95,11 @@ public class FourPillarsService implements IFourPillarsService {
         // 结果组装：整合所有计算结果为统一数据模型
         FourPillarsResult result = new FourPillarsResult();
         result.setBirthDate(utcDate);
+        result.setLocalDateTime(inputDateTime);
         result.setYearPillar(yearPillar);
         result.setMonthPillar(monthPillar);
         result.setDayPillar(dayPillar);
+        result.setGender(input.getGender());
         try {
             result.setHourPillar(hourPillar);
             result.setLuckPillars(luckPillars);
