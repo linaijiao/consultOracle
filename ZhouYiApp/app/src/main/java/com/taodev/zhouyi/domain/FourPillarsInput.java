@@ -15,6 +15,18 @@ public class FourPillarsInput {
     /** 经度（真太阳时必备） */
     private double longitude = 116.4;  // 默认北京
 
+    /** 性别 */
+    private Gender gender;
+
+    public FourPillarsInput(int year, int month, int day, int hour,int minute ,Gender gender) {
+        this.localDateTime = LocalDateTime.of(year, month, day, hour, minute);
+        this.gender=gender;
+
+    }
+    public FourPillarsInput() {
+
+    }
+
     public LocalDateTime getLocalDateTime() {
         return localDateTime;
     }
@@ -56,15 +68,7 @@ public class FourPillarsInput {
         this.daylightSaving = daylightSaving;
     }
 
-    /** 性别 */
-    private Gender gender;
-
     /** 是否夏令时（未来可能用） */
     private boolean daylightSaving = false;
-
-    // ================== 枚举 ==================
-    public enum Gender {
-        MALE, FEMALE
-    }
 
 }
