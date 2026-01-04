@@ -18,6 +18,46 @@ public class FourPillarsInput {
     /** 性别 */
     private Gender gender;
 
+    public boolean isUseTrueSolarTime() {
+        return useTrueSolarTime;
+    }
+
+    public void setUseTrueSolarTime(boolean useTrueSolarTime) {
+        this.useTrueSolarTime = useTrueSolarTime;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    /** 是否真太阳时 */
+    private boolean useTrueSolarTime = false;
+
+    public String getCalendarType() {
+        return calendarType;
+    }
+
+    public void setCalendarType(String calendarType) {
+        this.calendarType = calendarType;
+    }
+
+    /**   "GREGORIAN" 或 "LUNAR" */
+    private String calendarType = "GREGORIAN";
+    private String province;
+    private String city;
+
     public FourPillarsInput(int year, int month, int day, int hour,int minute ,Gender gender) {
         this.localDateTime = LocalDateTime.of(year, month, day, hour, minute);
         this.gender=gender;
