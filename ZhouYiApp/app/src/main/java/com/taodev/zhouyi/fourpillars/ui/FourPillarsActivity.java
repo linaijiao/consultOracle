@@ -1,5 +1,7 @@
 package com.taodev.zhouyi.fourpillars.ui;
 import com.taodev.zhouyi.R;
+import com.taodev.zhouyi.domain.FourPillarsInput;
+import com.taodev.zhouyi.domain.Gender;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -123,38 +125,53 @@ public class FourPillarsActivity extends AppCompatActivity {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int genderId = radioGroupGender.getCheckedRadioButtonId();
+                if (genderId == -1) {
+                    Toast.makeText(FourPillarsActivity.this, "请选择性别", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 // 获取输入数据
                 String name = editTextName.getText().toString();
-                String gender = ((RadioButton) findViewById(radioGroupGender.getCheckedRadioButtonId())).getText().toString();
+                // String gender = ((RadioButton) findViewById(radioGroupGender.getCheckedRadioButtonId())).getText().toString();
+
+                Gender gender = (genderId== R.id.radioButtonMale) ? Gender.MALE : Gender.FEMALE;
                 String trueTime = ((RadioButton) findViewById(radioGroupTrueTime.getCheckedRadioButtonId())).getText().toString();
                 String province = spinnerProvince.getSelectedItem().toString();
                 String city = spinnerCity.getSelectedItem().toString();
                 String calendarType = ((RadioButton) findViewById(radioGroupCalendarType.getCheckedRadioButtonId())).getText().toString();
-                String year = spinnerYear.getSelectedItem().toString();
-                String month = spinnerMonth.getSelectedItem().toString();
-                String day = spinnerDay.getSelectedItem().toString();
-                String hour = spinnerHour.getSelectedItem().toString();
-                String minute = spinnerMinute.getSelectedItem().toString();
-
+                int year = Integer.parseInt(spinnerYear.getSelectedItem().toString());
+                int month = Integer.parseInt(spinnerMonth.getSelectedItem().toString());
+                int day = Integer.parseInt(spinnerDay.getSelectedItem().toString());
+                int hour = Integer.parseInt(spinnerHour.getSelectedItem().toString());
+                int minute = Integer.parseInt(spinnerMinute.getSelectedItem().toString());
                 // 验证数据
                 if (name.isEmpty()) {
                     Toast.makeText(FourPillarsActivity.this, "请输入姓名", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                if (day > 28) {
+                    // 这里可以简单校验，或者直接交给 LocalDateTime 捕获异常
+                    try {
+                        java.time.LocalDateTime.of(year, month, day, hour, minute);
+                    } catch (Exception e) {
+                        Toast.makeText(FourPillarsActivity.this, "日期不存在，请检查", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
                 // 创建 Intent 并传递数据
-                Intent intent = new Intent(FourPillarsActivity.this, FourPillarsViewModel.class);
-                intent.putExtra("name", name);
-                intent.putExtra("gender", gender);
-                intent.putExtra("trueTime", trueTime);
-                intent.putExtra("province", province);
-                intent.putExtra("city", city);
-                intent.putExtra("calendarType", calendarType);
-                intent.putExtra("year", year);
-                intent.putExtra("month", month);
-                intent.putExtra("day", day);
-                intent.putExtra("hour", hour);
-                intent.putExtra("minute", minute);
+                FourPillarsInput input = new FourPillarsInput(year, month, day, hour, minute, gender);
+                Intent intent = new Intent(FourPillarsActivity.this, FourPillarsResultActivity.class);
+//                intent.putExtra("name", name);
+//                intent.putExtra("gender", gender);
+//                intent.putExtra("trueTime", trueTime);
+//                intent.putExtra("province", province);
+//                intent.putExtra("city", city);
+//                intent.putExtra("calendarType", calendarType);
+//                intent.putExtra("year", year);
+//                intent.putExtra("month", month);
+//                intent.putExtra("day", day);
+//                intent.putExtra("hour", hour);
+//                intent.putExtra("minute", minute);
 
                 startActivity(intent);
             }
