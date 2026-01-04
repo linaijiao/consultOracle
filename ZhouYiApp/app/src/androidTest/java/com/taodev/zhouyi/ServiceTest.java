@@ -2,6 +2,8 @@ package com.taodev.zhouyi;
 import static org.junit.Assert.assertEquals;
 
 import android.content.Context;
+import android.util.Log;
+
 import androidx.test.platform.app.InstrumentationRegistry; // 关键导入
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.taodev.zhouyi.calendar.CommonCalendarService;
@@ -11,16 +13,28 @@ import com.taodev.zhouyi.domain.Pillar;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @RunWith(AndroidJUnit4.class)
 public class ServiceTest {
     @Test
-    public void testServiceWithRealContext() {
+    public void testServiceWithRealContext() throws IOException{
 
         System.out.println("--- 开始测试 ---");
         // 1. 获取真机 Context (为了读取 assets)
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        // === 侦探代码开始 ===
+        Log.d("AssetCheck", "正在检查 assets 目录...");
+        String[] files = appContext.getAssets().list(""); // 列出根目录所有文件
+        if (files != null) {
+            for (String file : files) {
+                Log.d("AssetCheck", "找到文件: " + file);
+            }
+        } else {
+            Log.e("AssetCheck", "Assets 目录是空的！");
+        }
+        // === 侦探代码结束 ===
         CommonCalendarService service = new CommonCalendarService(appContext);
 
         System.out.println("-Testing: 验证立春分界线逻辑-");
@@ -55,6 +69,18 @@ public class ServiceTest {
         assertEquals("甲", yearPillarAfter.getStem());
         assertEquals("辰", yearPillarAfter.getBranch());
         System.out.println("Service 创建成功: " + service);
+
+        FourPillarsInput input = new FourPillarsInput();
+        LocalDateTime time = LocalDateTime.of(2024, 2, 4, 17, 0);
+        input.setLocalDateTime(time);
+        input.setLongitude(120.0); // 北京时间经度
+        input.setTimezoneIdStr("Asia/Shanghai"); // 如果你的 Input 需要时
+
+        Pillar[] pillars = service.getFourPillars(input);
+        Log.d("BaziTest", "年: " + pillars[0].getStem() + pillars[0].getBranch());
+        Log.d("BaziTest", "月: " + pillars[1].getStem() + pillars[1].getBranch());
+        Log.d("BaziTest", "日: " + pillars[2].getStem() + pillars[2].getBranch());
+        Log.d("BaziTest", "时: " + pillars[3].getStem() + pillars[3].getBranch());
 
     }
 }
