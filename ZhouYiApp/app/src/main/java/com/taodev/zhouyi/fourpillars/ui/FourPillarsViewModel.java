@@ -1,6 +1,8 @@
 package com.taodev.zhouyi.fourpillars.ui;
 
 import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.AndroidViewModel; // 注意：用 AndroidViewModel 才能拿 Context
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -19,7 +21,7 @@ import com.taodev.zhouyi.fourpillars.ui.FourPillarsInputUiModel;
 public class FourPillarsViewModel extends AndroidViewModel {
 
     // 给 Activity 观察的数据
-    private final MutableLiveData<FourPillarsDisplayModel> displayData = new MutableLiveData<>();
+    public final MutableLiveData<FourPillarsDisplayModel> displayData = new MutableLiveData<>();
 
     // 我们的总指挥
     private BaziFacade baziFacade;
@@ -44,19 +46,27 @@ public class FourPillarsViewModel extends AndroidViewModel {
 
     // 2. 响应用户点击“排盘”
     public void calculate(FourPillarsInputUiModel uiInput) {
-        // A. 把 UI 模型转成 领域模型 (Input)
-        FourPillarsInput domainInput = new FourPillarsInput(
-                uiInput.year, uiInput.month, uiInput.day, uiInput.hour,uiInput.minute, uiInput.gender
-        );
+        new Thread(() -> {
+            try {
+                // A. 把 UI 模型转成 领域模型 (Input)
+                FourPillarsInput domainInput = new FourPillarsInput(
+                        uiInput.year, uiInput.month, uiInput.day, uiInput.hour,uiInput.minute, uiInput.gender
+                );
 
-        // B. 【核心】调用 Facade 进行计算
-        FourPillarsResult result = baziFacade.performFullAnalysis(domainInput);
+                // B. 【核心】调用 Facade 进行计算
+                FourPillarsResult result = baziFacade.performFullAnalysis(domainInput);
 
-        // C. 【转换】把计算结果 转成 界面显示模型
-        FourPillarsDisplayModel displayModel = DisplayConverter.convert(result);
+                // C. 【转换】把计算结果 转成 界面显示模型
+                FourPillarsDisplayModel displayModel = DisplayConverter.convert(result);
+                Log.d("FourPillarsViewModel", "reslut！ :" +displayModel.fourPillars.get(0));
 
-        // D. 更新 LiveData，通知 Activity 刷新
-        displayData.setValue(displayModel);
+                // D. 更新 LiveData，通知 Activity 刷新
+//                displayData.setValue(displayModel);
+                displayData.postValue(displayModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }).start();
     }
 
     public LiveData<FourPillarsDisplayModel> getDisplayData() {
