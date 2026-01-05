@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -159,19 +160,9 @@ public class FourPillarsActivity extends AppCompatActivity {
                     }
                 }
                 // 创建 Intent 并传递数据
-                FourPillarsInput input = new FourPillarsInput(year, month, day, hour, minute, gender);
+                FourPillarsInputUiModel uiInput  = new FourPillarsInputUiModel(name,gender,year, month, day, hour, minute, province,city);
                 Intent intent = new Intent(FourPillarsActivity.this, FourPillarsResultActivity.class);
-//                intent.putExtra("name", name);
-//                intent.putExtra("gender", gender);
-//                intent.putExtra("trueTime", trueTime);
-//                intent.putExtra("province", province);
-//                intent.putExtra("city", city);
-//                intent.putExtra("calendarType", calendarType);
-//                intent.putExtra("year", year);
-//                intent.putExtra("month", month);
-//                intent.putExtra("day", day);
-//                intent.putExtra("hour", hour);
-//                intent.putExtra("minute", minute);
+                intent.putExtra("input_data",  uiInput);
 
                 startActivity(intent);
             }
