@@ -1,5 +1,7 @@
 package com.taodev.zhouyi.calendar;
 
+import android.util.Log;
+
 import com.taodev.zhouyi.core.repository.BaziDataLoader;
 import com.taodev.zhouyi.domain.BaziRules;
 
@@ -33,7 +35,12 @@ public class TenGodCalculator {
         String meYinYang = rules.getYinYang().get(dayMaster);
         String otherYinYang = rules.getYinYang().get(target);
 
-        if (meElem == null || otherElem == null) return "未知";
+        if (meElem == null || otherElem == null) {
+            Log.e("TenGodCalc", "出现未知十神！ dayMaster=" + dayMaster + ", target=" + target
+                    + " | meElem=" + meElem + ", otherElem=" + otherElem);
+            return "未知";
+        }
+
 
         // 2. 计算出当前两个字的所有状态 (Current State)
         // -------------------------------------------------
@@ -53,6 +60,7 @@ public class TenGodCalculator {
         // 3. 核心：遍历 JSON 规则寻找匹配项 (Pattern Matching)
         // -------------------------------------------------
         Map<String, BaziRules.RelationRule> allRules = rules.getTenGods().getRelations();
+        Log.d("TenGodCalc", "规则表大小: " + (allRules != null ? allRules.size() : "null"));
 
         for (Map.Entry<String, BaziRules.RelationRule> entry : allRules.entrySet()) {
             String tenGodName = entry.getKey();     // 例如 "比肩"
@@ -63,8 +71,16 @@ public class TenGodCalculator {
                     isGenerates, isRestricts, isGeneratedBy, isRestrictedBy)) {
                 return tenGodName; // 找到了！直接返回 Key
             }
+            Log.d("TenGodCalc", "规则: " + tenGodName +  " |relationCode=" + relationCode
+                    + " sameStem=" + isSameStem+ " sameElement=" + isSameElement
+                    + " sameYinYang=" + isSameYinYang );
         }
-
+        Log.d("TenGodCalc", "规则: " + " |relationCode=" + relationCode
+                + " sameStem=" + isSameStem+ " sameElement=" + isSameElement
+                + " sameYinYang=" + isSameYinYang );
+        Log.e("TenGodCalc", "出现未知十神！ dayMaster=" + dayMaster + ", target=" + target
+                + " | meElem=" + meElem + ", otherElem=" + otherElem);
+        Log.e("TenGodCalc", "所有规则未匹配，十神计算出现未知！ dayMaster=" + dayMaster + " target=" + target);
         return "未知";
     }
     /**
