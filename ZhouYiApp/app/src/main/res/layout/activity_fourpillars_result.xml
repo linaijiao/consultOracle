@@ -53,140 +53,24 @@
             android:gravity="center"
             android:textSize="16sp"
             android:textStyle="bold"/>
+        <!-- 年柱       -->
+        <include
+            android:id="@+id/layout_year"
+            layout="@layout/layout_pillar_item" />
+        <!-- 月柱       -->
+        <include
+            android:id="@+id/layout_month"
+            layout="@layout/layout_pillar_item" />
+        <!-- 日主       -->
+        <include
+            android:id="@+id/layout_day"
+            layout="@layout/layout_pillar_item" />
+        <!-- 时柱       -->
+        <include
+            android:id="@+id/layout_hour"
+            layout="@layout/layout_pillar_item" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="财"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="印"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="日元"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="伤"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
     </LinearLayout>
-
-    <!-- 四柱八字信息 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text=""
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="乙酉"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="戊子"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="辛巳"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="壬辰"
-            android:gravity="center"
-            android:textSize="16sp"/>
-    </LinearLayout>
-
-    <!-- 藏干信息 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="藏干"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="辛"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="癸"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="庚丙戊"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="乙戊癸"
-            android:gravity="center"
-            android:textSize="16sp"/>
-    </LinearLayout>
-
     <!-- 衰旺信息 -->
     <LinearLayout
         android:layout_width="match_parent"
