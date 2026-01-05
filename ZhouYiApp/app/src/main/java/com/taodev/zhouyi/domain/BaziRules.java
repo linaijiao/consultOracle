@@ -135,10 +135,18 @@ public class BaziRules {
         // 下面这几个看您JSON完整版里有没有，通常会有：
         private Boolean generates;    // 是否是我生
         private Boolean generatedBy;  // 是否是生我
-        private Boolean restricts;    // 是否是我克 (controls)
+        private Boolean controls;    // 是否是我克 (controls)
+        private Boolean restricts;
         private Boolean restrictedBy; // 是否是克我
 
         // Getters ...
+        public Boolean getControls() {
+            return controls;
+        }
+
+        public Boolean getRestrictedBy() {
+            return restrictedBy;
+        }
         public Boolean getSameStem() { return sameStem; }
         public Boolean getSameElement() { return sameElement; }
         public Boolean getSameYinYang() { return sameYinYang; }
