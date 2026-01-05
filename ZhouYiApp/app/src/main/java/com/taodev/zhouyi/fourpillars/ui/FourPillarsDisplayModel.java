@@ -1,6 +1,7 @@
 package com.taodev.zhouyi.fourpillars.ui;
 
 import com.taodev.zhouyi.domain.LuckPillar;
+import com.taodev.zhouyi.domain.Pillar;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,10 +16,10 @@ public class FourPillarsDisplayModel implements Serializable {
     public String dayPillarText;
     public String hourPillarText;
 
+    public List<Pillar> fourPillars;
 
 
-    // 3. 大运列表 (纯字符串列表，给 Adapter 用)
-    // 格式如： "甲戌 (4岁)"
+    // 3. 大运列表
     public List<LuckPillar> luckPillarList;
 
 
