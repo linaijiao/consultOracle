@@ -2,7 +2,11 @@ package com.taodev.zhouyi.fourpillars.ui;
 
 import com.taodev.zhouyi.domain.Gender;
 
-public class FourPillarsInputUiModel {
+import java.io.Serializable;
+
+public class FourPillarsInputUiModel implements Serializable
+
+{
     // 基础信息
     public String name;
     public Gender gender;
