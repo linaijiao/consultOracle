@@ -1,51 +1,250 @@
 package com.taodev.zhouyi.fourpillars.ui;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.taodev.zhouyi.R;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-// 这是专门用来显示排盘结果的 Activity
+import com.taodev.zhouyi.R;
+import com.taodev.zhouyi.domain.FourPillarsInput;
+import com.taodev.zhouyi.domain.Gender;
+import com.taodev.zhouyi.fourpillars.ui.adapter.LuckPillarAdapter;
+import com.taodev.zhouyi.domain.Pillar;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+//  这是一个标准的 MVVM View 层 Activity
 public class FourPillarsResultActivity extends AppCompatActivity {
-    private TextView textViewResult;
+
+    // 1. 定义 UI 控件
+    private TextView tvBasicInfo;
+    private TextView tvYearTenGod, tvYearStem, tvYearBranch, tvYearHiddenStems, tvYearNaYin;
+    private TextView tvMonthTenGod, tvMonthStem, tvMonthBranch, tvMonthHidden, tvMonthNaYin;
+    private TextView tvDayTenGod, tvDayStem, tvDayBranch, tvDayHidden, tvDayNaYin;
+    private TextView tvHourTenGod, tvHourStem, tvHourBranch, tvHourHidden, tvHourNaYin;
+
+    private TextView tvYearPillar, tvMonthPillar, tvDayPillar, tvHourPillar;
+    private RecyclerView rvLuckPillars; // 显示大运的列表
+
+    // 2. 定义 ViewModel 和 Adapter
+    private FourPillarsViewModel viewModel;
+    private LuckPillarAdapter luckAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fourpillars_result); // 确保 XML名字对
 
-        // 👇 关键：把那个爆红的 XML 绑定给这个 Activity
-        // 假设你的 XML 文件名叫 activity_four_pillars_result.xml
-        setContentView(R.layout.activity_fourpillars_result);
+        // A. 初始化视图控件 (请确保 XML 里有这些 ID)
+        initViews();
 
-        // 获取传递过来的数据
+        // B. 初始化 RecyclerView (大运列表)
+        initRecyclerView();
+
+        // C. 初始化 ViewModel
+        viewModel = new ViewModelProvider(this).get(FourPillarsViewModel.class);
+
+        // D. 接收 Intent 数据并组装成对象
+        FourPillarsInputUiModel input = getInputData();
+
+        if (input != null) {
+            // E. 核心：让 ViewModel 开始计算
+            viewModel.calculate(input);
+        }
+
+        // F.  核心：观察数据变化，刷新界面
+        // 只要 ViewModel 算好了，这里的代码就会自动执行
+        viewModel.displayData.observe(this, model -> {
+            if (model == null) return;
+
+            // 1. 设置顶部基础信息
+            tvBasicInfo.setText(model.basicInfoText);
+
+            // 2. 设置四柱 (年、月、日、时)
+            if (model.fourPillars != null) { // 假设 DisplayModel 有 Pillar[] fourPillars
+                setFourPillars(model.fourPillars);
+            }
+
+            // 3. 设置大运列表 (把数据喂给 Adapter)
+            if (model.luckPillarList != null && !model.luckPillarList.isEmpty()) {
+                luckAdapter.setLuckPillars(model.luckPillarList);
+            } else {
+                Log.e("ResultActivity", "大运数据为空");
+            }
+        });
+    }
+
+    private void setFourPillars(List<Pillar> pillars) {
+        if (pillars == null || pillars.size() < 4) return;
+
+        // 年柱
+        tvYearTenGod.setText(pillars.get(0).getStemTenGod());
+        tvYearStem.setText(pillars.get(0).getStem());
+        tvYearBranch.setText(pillars.get(0).getBranch());
+        tvYearNaYin.setText("[" + pillars.get(0).getNaYin() + "]");
+
+        // 藏干
+        StringBuilder yearHiddenBuilder = new StringBuilder();
+        List<String> yearHiddenList = pillars.get(0).getHiddenStems();
+        if (yearHiddenList != null) {
+            for (String stem : yearHiddenList) {
+                if (yearHiddenBuilder.length() > 0) {
+                    yearHiddenBuilder.append(" "); // 空格分隔，或 ","
+                }
+                yearHiddenBuilder.append(stem);
+            }
+        }
+
+        tvYearHiddenStems.setText(yearHiddenBuilder.toString());
+
+        // 月柱（复制改索引）
+        tvMonthTenGod.setText(pillars.get(1).getStemTenGod());
+        tvMonthStem.setText(pillars.get(1).getStem());
+        tvMonthBranch.setText(pillars.get(1).getBranch());
+        tvMonthNaYin.setText("[" + pillars.get(1).getNaYin() + "]");
+
+
+        StringBuilder monthHiddenBuilder = new StringBuilder();
+        List<String> monthHiddenList = pillars.get(1).getHiddenStems();
+        if (monthHiddenList != null) {
+            for (String stem : monthHiddenList) {
+                if (monthHiddenBuilder.length() > 0) monthHiddenBuilder.append(" ");
+                monthHiddenBuilder.append(stem);
+            }
+        }
+        tvMonthHidden.setText(monthHiddenBuilder.toString());
+
+        // 日柱
+        tvDayTenGod.setText(pillars.get(2).getStemTenGod());
+        tvDayStem.setText(pillars.get(2).getStem());
+        tvDayBranch.setText(pillars.get(2).getBranch());
+        tvDayNaYin.setText("[" + pillars.get(2).getNaYin() + "]");
+
+        StringBuilder dayHiddenBuilder = new StringBuilder();
+        List<String> dayHiddenList = pillars.get(2).getHiddenStems();
+        if (dayHiddenList != null) {
+            for (String stem : dayHiddenList) {
+                if (dayHiddenBuilder.length() > 0) dayHiddenBuilder.append(" ");
+                dayHiddenBuilder.append(stem);
+            }
+        }
+        tvDayHidden.setText(dayHiddenBuilder.toString());
+
+        // 时柱
+        tvHourTenGod.setText(pillars.get(3).getStemTenGod());
+        tvHourStem.setText(pillars.get(3).getStem());
+        tvHourBranch.setText(pillars.get(3).getBranch());
+        tvHourNaYin.setText("[" + pillars.get(3).getNaYin() + "]");
+
+        StringBuilder hourHiddenBuilder = new StringBuilder();
+        List<String> hourHiddenList = pillars.get(3).getHiddenStems();
+
+        if (hourHiddenList != null) {
+            for (String stem : hourHiddenList) {
+                if (hourHiddenBuilder.length() > 0) hourHiddenBuilder.append(" ");
+                hourHiddenBuilder.append(stem);
+            }
+        }
+        tvHourHidden.setText(hourHiddenBuilder.toString());
+    }
+
+    // --- 辅助方法 ---
+
+    private void initViews() {
+        // 这里的 ID 必须和你 activity_fourpillars_result.xml 里的对应！
+        //  xml 里还没有这些 ID，请去添加
+        tvBasicInfo = findViewById(R.id.base_info);
+
+//        tvYearPillar = findViewById(R.id.layout_year);
+        // 四柱容器（LinearLayout）
+        LinearLayout layoutYear = findViewById(R.id.layout_year);
+        LinearLayout layoutMonth = findViewById(R.id.layout_month);
+        LinearLayout layoutDay = findViewById(R.id.layout_day);
+        LinearLayout layoutHour = findViewById(R.id.layout_hour);
+
+        tvYearTenGod = layoutYear.findViewById(R.id.tv_stem_tengod);
+        tvYearStem = layoutYear.findViewById(R.id.tv_stem);
+        tvYearBranch = layoutYear.findViewById(R.id.tv_branch);
+        tvYearHiddenStems = layoutYear.findViewById(R.id.tv_hidden_stems);
+        tvYearNaYin = layoutYear.findViewById(R.id.tv_nayin);
+
+        // 月柱（复制粘贴改变量名）
+        tvMonthTenGod = layoutMonth.findViewById(R.id.tv_stem_tengod);
+        tvMonthStem = layoutMonth.findViewById(R.id.tv_stem);
+        tvMonthBranch = layoutMonth.findViewById(R.id.tv_branch);
+        tvMonthHidden = layoutMonth.findViewById(R.id.tv_hidden_stems);
+        tvMonthNaYin = layoutMonth.findViewById(R.id.tv_nayin);
+
+
+        // 日柱
+        tvDayTenGod = layoutDay.findViewById(R.id.tv_stem_tengod);
+        tvDayStem = layoutDay.findViewById(R.id.tv_stem);
+        tvDayBranch = layoutDay.findViewById(R.id.tv_branch);
+        tvDayHidden = layoutDay.findViewById(R.id.tv_hidden_stems);
+        tvDayNaYin = layoutDay.findViewById(R.id.tv_nayin);
+
+        // 时柱
+        tvHourTenGod = layoutHour.findViewById(R.id.tv_stem_tengod);
+        tvHourStem = layoutHour.findViewById(R.id.tv_stem);
+        tvHourBranch = layoutHour.findViewById(R.id.tv_branch);
+        tvHourHidden = layoutHour.findViewById(R.id.tv_hidden_stems);
+        tvHourNaYin = layoutHour.findViewById(R.id.tv_nayin);
+
+        rvLuckPillars = findViewById(R.id.rv_luck_list);
+    }
+
+    private void initRecyclerView() {
+        // 设置布局管理器 (HORIZONTAL 代表横着排，如果是竖着的列表改成 VERTICAL)
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvLuckPillars.setLayoutManager(layoutManager);
+
+        // 初始化 Adapter (先传一个空列表防止报错)
+        luckAdapter = new LuckPillarAdapter(new ArrayList<>());
+        rvLuckPillars.setAdapter(luckAdapter);
+    }
+
+    // 从 Intent 中提取数据，兼容旧的 String 传递方式和新的 Object 传递方式
+    private FourPillarsInputUiModel getInputData() {
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
+        if (extras == null) return null;
+
+
+        // 优先尝试直接获取对象 (如果 InputActivity 已经改成传对象了)
+        Serializable obj = extras.getSerializable("input_data");
+        if (obj instanceof FourPillarsInputUiModel) {
+            return (FourPillarsInputUiModel) obj;
+        }
+
+        // 兼容模式：如果传过来的是一堆 String，我们需要在这里把它们变成 Input 对象
+        try {
             String name = extras.getString("name");
-            String gender = extras.getString("gender");
-            String trueTime = extras.getString("trueTime");
+            String genderStr = extras.getString("gender", "男");
+            Gender gender = "男".equals(genderStr) ? Gender.MALE : Gender.FEMALE;
+
+            int year = Integer.parseInt(extras.getString("year"));
+            int month = Integer.parseInt(extras.getString("month"));
+            int day = Integer.parseInt(extras.getString("day"));
+            int hour = Integer.parseInt(extras.getString("hour"));
+            int minute = Integer.parseInt(extras.getString("minute"));
             String province = extras.getString("province");
             String city = extras.getString("city");
-            String calendarType = extras.getString("calendarType");
-            String year = extras.getString("year");
-            String month = extras.getString("month");
-            String day = extras.getString("day");
-            String hour = extras.getString("hour");
-            String minute = extras.getString("minute");
 
-            // 在这里使用获取到的数据进行八字排盘计算
-            //  八字排盘逻辑
+            // 创建对象
+            return new FourPillarsInputUiModel(name,gender,year, month, day, hour, minute, province,city);
 
-            String result = "姓名：" + name + "\n" +
-                    "性别：" + gender + "\n" +
-                    "真太阳时：" + trueTime + "\n" +
-                    "出生地：" + province + " " + city + "\n" +
-                    "日期类型：" + calendarType + "\n" +
-                    "出生日期：" + year + "年" + month + "月" + day + "日" + "\n" +
-                    "出生时辰：" + hour + "时" + minute + "分\n\n" +
-                    "八字排盘结果：\n" +
-                    "这里显示您的八字排盘结果...";  //  替换成真实的排盘结果
-
-            textViewResult.setText(result);
+        } catch (Exception e) {
+            Toast.makeText(this, "数据传递格式错误", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+            return null;
         }
     }
 }
