@@ -84,14 +84,18 @@
     "relations": {
       "比肩": {"sameStem": true, "sameElement": true, "sameYinYang": true},
       "劫财": {"sameStem": false, "sameElement": true, "sameYinYang": false},
+
       "食神": {"sameStem": false, "sameElement": false, "sameYinYang": true, "generates": true},
-      "伤官": {"sameStem": true, "sameElement": false, "sameYinYang": false, "generates": true},
+      "伤官": {"sameStem": false, "sameElement": false, "sameYinYang": false, "generates": true},
+
       "正财": {"sameStem": false, "sameElement": false, "sameYinYang": false, "controls": true},
-      "偏财": {"sameStem": true, "sameElement": false, "sameYinYang": true, "controls": true},
-      "正官": {"sameStem": false, "sameElement": false, "sameYinYang": true, "restricts": true},
-      "七杀": {"sameStem": true, "sameElement": false, "sameYinYang": false, "restricts": true},
+      "偏财": {"sameStem": false, "sameElement": false, "sameYinYang": true, "controls": true},
+
+      "正官": {"sameStem": false, "sameElement": false, "sameYinYang": false, "restricts": true},
+      "七杀": {"sameStem": false, "sameElement": false, "sameYinYang": true, "restricts": true},
+
       "正印": {"sameStem": false, "sameElement": false, "sameYinYang": false, "generatedBy": true},
-      "偏印": {"sameStem": true, "sameElement": false, "sameYinYang": true, "generatedBy": true}
+      "偏印": {"sameStem": false, "sameElement": false, "sameYinYang": true, "generatedBy": true}
     },
     
     "generationCycle": {
