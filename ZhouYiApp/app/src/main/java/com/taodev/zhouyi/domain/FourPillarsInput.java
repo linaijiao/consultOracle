@@ -76,7 +76,7 @@ public class FourPillarsInput {
     }
 
     public String getTimezoneIdStr() {
-        return timezoneIdStr;
+        return "Asia/" + timezoneIdStr;
     }
 
     public void setTimezoneIdStr(String timezoneIdStr) {
