@@ -8,14 +8,10 @@ public class Pillar {
     private String stem;
     private String branch;
 
-    public List<String> getHiddenStems() {
-        return hiddenStems;
-    }
-
     // 四柱天干的十神
     private String stemTenGod;
-    // 藏干
-    private List<String> hiddenStems;
+//    // 藏干
+//    private List<String> hiddenStems;
 
     // 四柱地支隐藏的天干的十神；也就是藏干的十神
     // 地支藏干的十神列表 (可能有 1~3 个)
@@ -93,9 +89,6 @@ public class Pillar {
     public Pillar(String stem, String branch) {
         this.stem = stem;
         this.branch = branch;
-    }
-    public List<String> HiddenStemInfo(){
-        return hiddenStems;
     }
 
     public void setHiddenStems(List<HiddenStemInfo> infos) {
