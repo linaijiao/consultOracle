@@ -6,19 +6,16 @@ import java.util.List;
 public class Pillar {
     //天干
     private String stem;
+    //地支
     private String branch;
 
     // 四柱天干的十神
     private String stemTenGod;
-//    // 藏干
-//    private List<String> hiddenStems;
-
-    // 四柱地支隐藏的天干的十神；也就是藏干的十神
-    // 地支藏干的十神列表 (可能有 1~3 个)
-    // 对象，包含：天干名 + 十神名
+    // 藏干：四柱地支隐藏的天干  藏干的十神；也就是地支隐藏的天干的十神 地支藏干的十神列表 (可能有 1~3 个)
+    // 别表类型为对象HiddenStemInfo 对象，包含：天干名 + 十神名
     public List<HiddenStemInfo> hiddenStemInfos;
 
-    // 存放 "长生", "帝旺" 等
+    // 衰旺:存放 "长生", "帝旺" 等
     public String lifeStage;
 
     public String getLifeStage() {
@@ -27,8 +24,9 @@ public class Pillar {
 
     // 纳音 (例如 "海中金")
     private String naYin;
+    // 空亡 (例如 "戌亥")
+    private String kongWang;
 
-    //空亡
     public void setLifeStage(String lifeStage) {
         this.lifeStage = lifeStage;
     }
@@ -57,17 +55,14 @@ public class Pillar {
         this.kongWang = kongWang;
     }
 
-    // 空亡 (例如 "戌亥")
-    private String kongWang;
-
     public String getStemTenGod() {
         return stemTenGod;
     }
 
     public void setStemTenGod(String stemTenGod) {
+        //天干十神
         this.stemTenGod = stemTenGod;
     }
-    //天干十神
     //地支
 
     public String getBranch() {
@@ -100,6 +95,21 @@ public class Pillar {
         public String stemName;
         // 对应的十神 (如 "食神")
         public String tenGodName;
+        public String getStemName() {
+            return stemName;
+        }
+
+        public void setStemName(String stemName) {
+            this.stemName = stemName;
+        }
+
+        public String getTenGodName() {
+            return tenGodName;
+        }
+
+        public void setTenGodName(String tenGodName) {
+            this.tenGodName = tenGodName;
+        }
         public HiddenStemInfo(String stemName, String tenGodName) {
             this.stemName = stemName;
             this.tenGodName = tenGodName;
