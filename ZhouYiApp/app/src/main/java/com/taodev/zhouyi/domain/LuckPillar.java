@@ -11,23 +11,30 @@ import java.util.List;
 public class LuckPillar implements Serializable {
 
     // === 1. 大运本柱信息 (对应表格红字部分) ===
+    private String tenGod;    // 大运十神 (e.g. "七杀")
     private String stem;      // 大运天干 (e.g. "丙")
     private String branch;    // 大运地支 (e.g. "寅")
-    private String tenGod;    // 大运十神 (e.g. "七杀", 可选)
+    private String lifeStage; // 大运长生
 
     // === 2. 时间定位信息 (对应表格中间部分) ===
     private int startAge;     // 起运虚岁 (e.g. 2)
     private int startYear;    // 起运年份 (e.g. 1996)
     private int endYear;      // 结束年份 (e.g. 2005)
 
+
+    public String getTenGod() {
+        return tenGod;
+    }
+
     // === 3. 下属流年列表 (对应表格最下面的一串字) ===
     // 这一步大运管辖的 10 个流年 (e.g. "丙子", "丁丑"...)
     private List<String> liuNianList;
 
     // === 构造函数 ===
-        public LuckPillar(String stem, String branch, int startAge, int startYear) {
+        public LuckPillar(String stem, String branch,String lifeStage, int startAge, int startYear) {
         this.stem = stem;
         this.branch = branch;
+        this.lifeStage = lifeStage;
         this.startAge = startAge;
         this.startYear = startYear;
         this.endYear = startYear + 9; // 大运管10年
@@ -45,7 +52,13 @@ public class LuckPillar implements Serializable {
     public String getBranch() { return branch; }
     public int getStartAge() { return startAge; }
     public int getStartYear() { return startYear; }
+    public String getLifeStage() {
+        return lifeStage;
+    }
 
+    public void setLifeStage(String lifeStage) {
+        this.lifeStage = lifeStage;
+    }
     public List<String> getLiuNianList() { return liuNianList; }
     public void setLiuNianList(List<String> list) { this.liuNianList = list; }
 }
