@@ -3,12 +3,14 @@ package com.taodev.zhouyi.fourpillars.analysis;
 import com.taodev.zhouyi.calendar.BaziAttributesCalculator;
 import com.taodev.zhouyi.calendar.TenGodCalculator;
 import com.taodev.zhouyi.domain.BaziRules;
+import com.taodev.zhouyi.domain.FourPillarsInput;
 import com.taodev.zhouyi.domain.FourPillarsResult;
 import com.taodev.zhouyi.domain.LuckPillar;
 import com.taodev.zhouyi.domain.Pillar;
 import com.taodev.zhouyi.engine.IFourPillarsAnalysisService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,12 +60,8 @@ public class FourPillarsAnalysisService implements IFourPillarsAnalysisService {
         // 3. 计算大运 (使用新逻辑)
         boolean isMale = "乾造".equals(result.getGender().getLabel());
 
-        // 从 Result 里取出之前算好的起运岁数 (例如 4)
-        int startAge = result.getStartAge();
-
-        // 调用带 startAge
-        List<LuckPillar> lucks = calculateLuckPillars(yearP, monthP, isMale, startAge);
-        result.setLuckPillars(lucks);
+//        // 从 Result 里取出之前算好的起运岁数 (例如 4)
+//        int startAge = result.getStartAge();
 
         //4. (可选) 身强身弱
          String strength = analyzeBodyStrength(new Pillar[]{yearP, monthP, dayP, hourP});
@@ -122,73 +120,8 @@ public class FourPillarsAnalysisService implements IFourPillarsAnalysisService {
         // D. 将算好的藏干列表存回柱子
         pillar.setHiddenStemInfos(hiddenStemInfos);
     }
-    // =========================================================================
-    // 1. 实现：计算大运 (核心逻辑)
-    // =========================================================================
-    @Override
-    public List<LuckPillar> calculateLuckPillars(Pillar yearPillar, Pillar monthPillar, boolean isMale, int startAge) {
-        List<LuckPillar> luckList = new ArrayList<>();
-        // 1.1 从 Rules 里提取有序的天干和地支列表
-        // 注意：new ArrayList(...) 会按照 Map 的 Key 顺序生成 List
-        List<String> stems = new ArrayList<>(rules.getFiveElements().getHeavenlyStems().keySet());
-        List<String> branches = new ArrayList<>(rules.getFiveElements().getEarthlyBranches().keySet());
 
-        // 1.2 判断年干阴阳
-        String yearStem = yearPillar.getStem();
-        // 假设 rules.getYinYang() 返回 {"甲":"阳", "乙":"阴"...}
-        String yearPolarity = rules.getYinYang().get(yearStem);
 
-        // 1.3 确定顺排还是逆排
-        // 阳男阴女 -> 顺排 (Forward)
-        // 阴男阳女 -> 逆排 (Backward)
-        boolean isYang = "阳".equals(yearPolarity);
-        boolean isForward;
-
-        if (isMale) {
-            isForward = isYang; // 男：阳顺阴逆
-        } else {
-            isForward = !isYang; // 女：阴顺阳逆
-        }
-
-        // 1.4 找到月柱在 60 甲子中的位置，作为起点
-        String startStem = monthPillar.getStem();
-        String startBranch = monthPillar.getBranch();
-
-        stems = new ArrayList<>(rules.getFiveElements().getHeavenlyStems().keySet());
-        branches = new ArrayList<>(rules.getFiveElements().getEarthlyBranches().keySet());
-
-        int stemIndex = stems.indexOf(startStem);
-        int branchIndex = branches.indexOf(startBranch);
-        // 1.4 循环推算 8 步大运 (通常排 8 步，或者 10 步)
-        // 注意：大运是不算起运岁数的，起运岁数(比如 4岁上运)需要另外的算法，这里先默认每10年一运
-        int currentAge = 0; // 起始岁数占位，具体需要结合节气计算
-
-        for (int i = 1; i <= 8; i++) { // 从 1 开始，因为大运从月柱的下一个开始
-            // 移动一步
-            if (isForward) {
-                stemIndex = (stemIndex + 1) % 10;
-                branchIndex = (branchIndex + 1) % 12;
-            } else {
-                stemIndex = (stemIndex - 1 + 10) % 10;
-                branchIndex = (branchIndex - 1 + 12) % 12;
-            }
-
-            String nextStem = stems.get(stemIndex);
-            String nextBranch = branches.get(branchIndex);
-            // 简单模拟起运时间：假设第一步运从 10 岁开始 (实际需精确计算)
-            // 这里仅仅是生成大运的干支柱子
-            int startYear = i * 10;
-
-            LuckPillar luck = new LuckPillar(nextStem, nextBranch, startAge, startYear);
-
-            // 计算大运的纳音
-            // String tenGod = tenGodCalculator.calculate(yearPillar.getStem(), nextStem); // 这里的参照点看需求
-
-            luckList.add(luck);
-        }
-
-        return luckList;
-    }
     // 分析身旺身弱
     @Override
     public String analyzeBodyStrength(Pillar[] pillars) {
@@ -285,6 +218,5 @@ public class FourPillarsAnalysisService implements IFourPillarsAnalysisService {
         String kongWang = attributesCalculator.calculateKongWang(pillar.getStem(), pillar.getBranch());
         pillar.setKongWang(kongWang);
     }
-
 
 }
