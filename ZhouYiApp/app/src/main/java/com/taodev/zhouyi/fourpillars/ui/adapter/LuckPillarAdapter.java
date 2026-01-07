@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.taodev.zhouyi.R;
 import com.taodev.zhouyi.domain.LuckPillar;
+import com.taodev.zhouyi.fourpillars.ui.FourPillarsDisplayModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +16,13 @@ import java.util.List;
 public class LuckPillarAdapter extends RecyclerView.Adapter<LuckPillarAdapter.ViewHolder> {
 
     // 1. 数据源：这是要显示的大运列表
-    private List<LuckPillar> luckPillars = new ArrayList<>();
+    private List<FourPillarsDisplayModel.LuckPillarUiModel> luckPillars = new ArrayList<>();
     // 2. 构造方法 (初始化用)
-    public LuckPillarAdapter(List<LuckPillar> data) {
+    public LuckPillarAdapter(List<FourPillarsDisplayModel.LuckPillarUiModel> data) {
         this.luckPillars = data;
     }
     // 2. 更新数据的方法 (给 Activity 调用的)
-    public void setLuckPillars(List<LuckPillar> newData) {
+    public void setLuckPillars(List<FourPillarsDisplayModel.LuckPillarUiModel> newData) {
         this.luckPillars = newData;
         // 通知界面刷新
         notifyDataSetChanged();
@@ -39,7 +40,7 @@ public class LuckPillarAdapter extends RecyclerView.Adapter<LuckPillarAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // 4. 绑定数据：把 List 里的第 position 个数据，填到界面上
-        LuckPillar item = luckPillars.get(position);
+        FourPillarsDisplayModel.LuckPillarUiModel item = luckPillars.get(position);
 
         // 在 Converter 里把数据拼成了 "甲戌\n4岁"，这里简单拆一下或者直接显示
         // 假设传入的是简单的字符串，实际项目中可以传对象
@@ -47,11 +48,11 @@ public class LuckPillarAdapter extends RecyclerView.Adapter<LuckPillarAdapter.Vi
         // 大运名字 (如: 戊寅)
         // 假设 XML 里叫 tv_luck_stem_branch，如果不确定，去 XML 确认一下 ID
         if (holder.tvStemBranch != null) {
-            holder.tvStemBranch.setText(item.getStem() + item.getBranch());
+            holder.tvStemBranch.setText(item.getPillarName());
         }
         // 起运虚岁 (XML ID: tv_col_age)
         if (holder.tvAge != null) {
-            holder.tvAge.setText(String.valueOf(item.getStartAge()));
+            holder.tvAge.setText(String.valueOf(item.getAgeInfo()));
         }
         // 起运年份 (XML ID: tv_col_start_year)
         if (holder.tvStartYear != null) {
