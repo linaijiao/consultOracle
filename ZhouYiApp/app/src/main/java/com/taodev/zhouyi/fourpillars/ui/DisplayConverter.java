@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisplayConverter {
-    public static FourPillarsDisplayModel convertPillar(FourPillarsResult result) {
+    public static FourPillarsDisplayModel convertToDisplayModel(FourPillarsResult result) {
         FourPillarsDisplayModel model = new FourPillarsDisplayModel();
 
         if (result == null) return model;
