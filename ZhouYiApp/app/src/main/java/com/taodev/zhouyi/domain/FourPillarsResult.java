@@ -1,6 +1,7 @@
 package com.taodev.zhouyi.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,18 @@ public class FourPillarsResult {
     private int startAge;
     /**身强身弱  */
     private String bodyStrength;
-
+    /**
+     * 辅助方法：一次性拿到按顺序排列的 4 个柱子
+     * 顺序：0-年, 1-月, 2-日, 3-时
+     */
+    public List<Pillar> getPillars() {
+        List<Pillar> list = new ArrayList<>();
+        list.add(this.yearPillar);
+        list.add(this.monthPillar);
+        list.add(this.dayPillar);
+        list.add(this.hourPillar);
+        return list;
+    }
     public String getBodyStrength() {
         return bodyStrength;
     }
