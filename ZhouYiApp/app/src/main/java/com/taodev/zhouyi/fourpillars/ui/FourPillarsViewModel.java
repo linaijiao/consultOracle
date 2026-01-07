@@ -87,7 +87,7 @@ public class FourPillarsViewModel extends AndroidViewModel {
                 Log.d("VIEWMODEL_CALCULATE", "reslut！ :" +result.getDayPillar().getStemTenGod());
                 Log.d("VIEWMODEL_CALCULATE", "reslut！ :" +result.getDayPillar().getHiddenStemInfos());
                 // C. 【转换】把计算结果 转成 界面显示模型
-                FourPillarsDisplayModel displayModel = DisplayConverter.convertPillar(result);
+                FourPillarsDisplayModel displayModel = DisplayConverter.convertToDisplayModel(result);
                 Log.d("VIEWMODEL_CALCULATE", "reslut！ :" +displayModel.pillars.get(0));
 
                 // D. 更新 LiveData，通知 Activity 刷新
