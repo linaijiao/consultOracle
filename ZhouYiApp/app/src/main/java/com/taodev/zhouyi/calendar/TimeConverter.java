@@ -2,6 +2,7 @@ package com.taodev.zhouyi.calendar;
 
 import com.taodev.zhouyi.domain.FourPillarsInput;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -21,13 +22,29 @@ public class TimeConverter {
             return null;
         }
     }
-
+    /**
+     * ★★★直接解析 Zulu 字符串为 Date 对象 ★★★
+     * 服务于 jieQiCache -> Timeline 的转换
+     * @param zuluDateStr 例如 "1900-02-04T05:51:31Z"
+     * @return Date (UTC)
+     */
+    public static Date parseZuluToDate(String zuluDateStr) {
+        if (zuluDateStr == null) return null;
+        try {
+            // Instant.parse 天然支持 "T...Z" 格式
+            Instant instant = Instant.parse(zuluDateStr);
+            return Date.from(instant);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     /**
      * 获取UTC时间
      * @param input DTO输入
-     * @return
+     * @return zulu UTC
      */
-    public Date convertToUtc(FourPillarsInput input) {
+    public static Date convertToUtc(FourPillarsInput input) {
         if (input == null || input.getLocalDateTime() == null) {
             return null; // 或者抛异常
         }
