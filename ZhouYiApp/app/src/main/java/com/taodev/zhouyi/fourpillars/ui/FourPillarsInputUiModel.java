@@ -22,7 +22,7 @@ public class FourPillarsInputUiModel implements Serializable
     public String province;
     public String city;
 
-    // 构造函数：对应您 Activity 里的传参顺序
+    // 构造函数：对应 Activity 里的传参顺序
     public FourPillarsInputUiModel(String name, Gender gender,
                                    int year, int month, int day, int hour, int minute,
                                    String province, String city) {
