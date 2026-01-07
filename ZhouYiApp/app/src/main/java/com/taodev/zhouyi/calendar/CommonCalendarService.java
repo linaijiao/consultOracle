@@ -420,4 +420,9 @@ public class CommonCalendarService implements ICalendarService {
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         return sdf.parse(liChunStr);
     }
+    @Override
+    public Map<String,String> getRawJieQiMap(String year){
+        return jieQiCache.get(year);
+    }
+
 }
