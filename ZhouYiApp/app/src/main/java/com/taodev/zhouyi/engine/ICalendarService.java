@@ -5,6 +5,7 @@ import com.taodev.zhouyi.calendar.TimeConverter;
 import com.taodev.zhouyi.domain.FourPillarsInput;
 import com.taodev.zhouyi.domain.Pillar;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * The interface Calendar service.
@@ -63,4 +64,5 @@ public interface ICalendarService {
                 getHourPillar(input)
         };
     }
+    Map<String, String> getRawJieQiMap(String year);;
 }
