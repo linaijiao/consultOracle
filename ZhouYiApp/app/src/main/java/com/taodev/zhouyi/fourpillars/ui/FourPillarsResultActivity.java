@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.taodev.zhouyi.R;
-import com.taodev.zhouyi.domain.FourPillarsInput;
 import com.taodev.zhouyi.domain.Gender;
 import com.taodev.zhouyi.fourpillars.ui.adapter.LuckPillarAdapter;
 import com.taodev.zhouyi.domain.Pillar;
@@ -69,33 +68,33 @@ public class FourPillarsResultActivity extends AppCompatActivity {
             tvBasicInfo.setText(model.basicInfoText);
 
             // 2. 设置四柱 (年、月、日、时)
-            if (model.fourPillars != null) { // 假设 DisplayModel 有 Pillar[] fourPillars
-                setFourPillars(model.fourPillars);
+            if (model.pillars != null) { // 假设 DisplayModel 有 Pillar[] fourPillars
+                setFourPillars(model.pillars);
             }
 
             // 3. 设置大运列表 (把数据喂给 Adapter)
-            if (model.luckPillarList != null && !model.luckPillarList.isEmpty()) {
-                luckAdapter.setLuckPillars(model.luckPillarList);
+            if (model.luckPillars != null && !model.luckPillars.isEmpty()) {
+                luckAdapter.setLuckPillars(model.luckPillars);
             } else {
                 Log.e("ResultActivity", "大运数据为空");
             }
         });
     }
 
-    private void setFourPillars(List<Pillar> pillars) {
+    private void setFourPillars(List<FourPillarsDisplayModel.PillarUiModel> pillars) {
         if (pillars == null || pillars.size() < 4) return;
 
         // 年柱
-        tvYearTenGod.setText(pillars.get(0).getStemTenGod());
-        tvYearStem.setText(pillars.get(0).getStem());
-        tvYearBranch.setText(pillars.get(0).getBranch());
+        tvYearTenGod.setText(pillars.get(0).getHeadTenGod());
+        tvYearStem.setText(pillars.get(0).getStemName());
+        tvYearBranch.setText(pillars.get(0).getBranchName());
         tvYearNaYin.setText("[" + pillars.get(0).getNaYin() + "]");
 
         // 藏干
         StringBuilder yearHiddenBuilder = new StringBuilder();
-        List<String> yearHiddenList = pillars.get(0).getHiddenStems();
+        List<FourPillarsDisplayModel.HiddenStemUiItem> yearHiddenList = pillars.get(0).getHiddenStemItems();
         if (yearHiddenList != null) {
-            for (String stem : yearHiddenList) {
+            for (FourPillarsDisplayModel.HiddenStemUiItem stem : yearHiddenList) {
                 if (yearHiddenBuilder.length() > 0) {
                     yearHiddenBuilder.append(" "); // 空格分隔，或 ","
                 }
@@ -103,57 +102,57 @@ public class FourPillarsResultActivity extends AppCompatActivity {
             }
         }
 
-        tvYearHiddenStems.setText(yearHiddenBuilder.toString());
+        tvYearHiddenStems.setText(pillars.get(0).hiddenStemString);
 
         // 月柱（复制改索引）
-        tvMonthTenGod.setText(pillars.get(1).getStemTenGod());
-        tvMonthStem.setText(pillars.get(1).getStem());
-        tvMonthBranch.setText(pillars.get(1).getBranch());
+        tvMonthTenGod.setText(pillars.get(1).getHeadTenGod());
+        tvMonthStem.setText(pillars.get(1).getStemName());
+        tvMonthBranch.setText(pillars.get(1).getBranchName());
         tvMonthNaYin.setText("[" + pillars.get(1).getNaYin() + "]");
 
 
         StringBuilder monthHiddenBuilder = new StringBuilder();
-        List<String> monthHiddenList = pillars.get(1).getHiddenStems();
+        List<FourPillarsDisplayModel.HiddenStemUiItem> monthHiddenList = pillars.get(1).getHiddenStemItems();
         if (monthHiddenList != null) {
-            for (String stem : monthHiddenList) {
+            for (FourPillarsDisplayModel.HiddenStemUiItem stem : monthHiddenList) {
                 if (monthHiddenBuilder.length() > 0) monthHiddenBuilder.append(" ");
                 monthHiddenBuilder.append(stem);
             }
         }
-        tvMonthHidden.setText(monthHiddenBuilder.toString());
+        tvMonthHidden.setText(pillars.get(1).hiddenStemString);
 
         // 日柱
-        tvDayTenGod.setText(pillars.get(2).getStemTenGod());
-        tvDayStem.setText(pillars.get(2).getStem());
-        tvDayBranch.setText(pillars.get(2).getBranch());
+        tvDayTenGod.setText(pillars.get(2).getHeadTenGod());
+        tvDayStem.setText(pillars.get(2).getStemName());
+        tvDayBranch.setText(pillars.get(2).getBranchName());
         tvDayNaYin.setText("[" + pillars.get(2).getNaYin() + "]");
 
         StringBuilder dayHiddenBuilder = new StringBuilder();
-        List<String> dayHiddenList = pillars.get(2).getHiddenStems();
+        List<FourPillarsDisplayModel.HiddenStemUiItem> dayHiddenList = pillars.get(2).getHiddenStemItems();
         if (dayHiddenList != null) {
-            for (String stem : dayHiddenList) {
+            for (FourPillarsDisplayModel.HiddenStemUiItem stem : dayHiddenList) {
                 if (dayHiddenBuilder.length() > 0) dayHiddenBuilder.append(" ");
                 dayHiddenBuilder.append(stem);
             }
         }
-        tvDayHidden.setText(dayHiddenBuilder.toString());
+        tvDayHidden.setText(pillars.get(2).hiddenStemString);
 
         // 时柱
-        tvHourTenGod.setText(pillars.get(3).getStemTenGod());
-        tvHourStem.setText(pillars.get(3).getStem());
-        tvHourBranch.setText(pillars.get(3).getBranch());
+        tvHourTenGod.setText(pillars.get(3).getHeadTenGod());
+        tvHourStem.setText(pillars.get(3).getStemName());
+        tvHourBranch.setText(pillars.get(3).getBranchName());
         tvHourNaYin.setText("[" + pillars.get(3).getNaYin() + "]");
 
         StringBuilder hourHiddenBuilder = new StringBuilder();
-        List<String> hourHiddenList = pillars.get(3).getHiddenStems();
+        List<FourPillarsDisplayModel.HiddenStemUiItem> hourHiddenList = pillars.get(3).getHiddenStemItems();
 
         if (hourHiddenList != null) {
-            for (String stem : hourHiddenList) {
+            for (FourPillarsDisplayModel.HiddenStemUiItem stem : hourHiddenList) {
                 if (hourHiddenBuilder.length() > 0) hourHiddenBuilder.append(" ");
                 hourHiddenBuilder.append(stem);
             }
         }
-        tvHourHidden.setText(hourHiddenBuilder.toString());
+        tvHourHidden.setText(pillars.get(3).hiddenStemString);
     }
 
     // --- 辅助方法 ---
