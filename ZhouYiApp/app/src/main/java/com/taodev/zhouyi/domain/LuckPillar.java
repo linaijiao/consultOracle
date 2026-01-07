@@ -17,7 +17,8 @@ public class LuckPillar implements Serializable {
     private String lifeStage; // 大运长生
 
     // === 2. 时间定位信息 (对应表格中间部分) ===
-    private int startAge;     // 起运虚岁 (e.g. 2)
+    private int startAge;     // 存整岁，比如 4
+    private String startAgeDesc; //存 "4岁2个月15天"
     private int startYear;    // 起运年份 (e.g. 1996)
     private int endYear;      // 结束年份 (e.g. 2005)
 
@@ -31,11 +32,13 @@ public class LuckPillar implements Serializable {
     private List<String> liuNianList;
 
     // === 构造函数 ===
-        public LuckPillar(String stem, String branch,String lifeStage, int startAge, int startYear) {
+    public LuckPillar(String tenGod, String stem, String branch,String lifeStage, int startAge,String startAgeDesc, int startYear) {
+        this.tenGod = tenGod;
         this.stem = stem;
         this.branch = branch;
         this.lifeStage = lifeStage;
         this.startAge = startAge;
+        this.startAgeDesc = startAgeDesc;
         this.startYear = startYear;
         this.endYear = startYear + 9; // 大运管10年
         this.liuNianList = new ArrayList<>();
@@ -58,6 +61,9 @@ public class LuckPillar implements Serializable {
 
     public void setLifeStage(String lifeStage) {
         this.lifeStage = lifeStage;
+    }
+    public int getEndYear() {
+        return endYear;
     }
     public List<String> getLiuNianList() { return liuNianList; }
     public void setLiuNianList(List<String> list) { this.liuNianList = list; }
