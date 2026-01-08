@@ -242,14 +242,23 @@ public class CommonCalendarService implements ICalendarService {
         int foundIndex = -1;
         // 倒序遍历（从“小寒”往前找）
         // 或者正序遍历，找到第一个“大于”当前时间的节气，然后取前一个
+        //input的本地时间解析成UTC
+        Date inputTimeUtc = TimeConverter.convertToUtc(input);
+        String lichunStr = jieNames.get(0);
+        String lichunDateString = currentYearJieQi.get(lichunStr);
+        Date lichunDate = TimeConverter.parseZuluToDate(lichunDateString);
         for (int i = 0; i < jieNames.size(); i++) {
             String jieName = jieNames.get(i);
             // "1900-02-04T05:51:31Z" 是内容是UTC日期字符串
             String jieDateStr = currentYearJieQi.get(jieName);
             // 解析 UTC 时间
-            LocalDateTime jieTime = TimeConverter.parse(jieDateStr);
-
-            if (inputTime.isAfter(jieTime) || inputTime.isEqual(jieTime)) {
+//            LocalDateTime jieTime = TimeConverter.parse(jieDateStr);
+            Date jieTime = TimeConverter.parseZuluToDate(jieDateStr);
+            //如果输入的日期小于节气表中的立春日期，则是上一年的
+            if (jieTime.before(lichunDate)){
+                continue;
+            }
+            if (inputTimeUtc.after(jieTime) || inputTimeUtc.equals(jieTime)) {
                 // 以上面取得“Lichun”的日期为例子，如果输入时间在立春之后，暂定是寅月；继续往后看，如果在惊蛰之后，那就是卯月...
                 foundIndex = i;
             } else {
@@ -271,12 +280,13 @@ public class CommonCalendarService implements ICalendarService {
             // B. 判断是 子月 还是 丑月？关键看 "小寒"
             // 小寒通常在 1月5日或6日，是 子/丑 的分界线
             String xiaoHanStr = currentYearJieQi.get("XiaoHan");
-            LocalDateTime xiaoHanTime = TimeConverter.parse(xiaoHanStr);
+//            LocalDateTime xiaoHanTime = TimeConverter.parse(xiaoHanStr);
+            Date xiaoHanTime = TimeConverter.parseZuluToDate(xiaoHanStr);
 
             int monthStemIndexOffset; // 月份偏移量
             String monthBranch;       // 月支
 
-            if (inputTime.isBefore(xiaoHanTime)) {
+            if (inputTimeUtc.before(xiaoHanTime)) {
                 // 还没到小寒 (1月1日 - 1月5日) -> 上一年的 子月 (11月)
                 monthBranch = "子";
                 monthStemIndexOffset = 10; // 对应子月
