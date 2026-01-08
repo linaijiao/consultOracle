@@ -53,7 +53,7 @@ public class TenGodCalculator {
         int relationCode = getRelation(meElem, otherElem);
 
         boolean isGenerates = (relationCode == 1);     // 我生
-        boolean isRestricts = (relationCode == 2);     // 我克 (controls)
+        boolean isControls = (relationCode == 2);      // 我克 → 财
         boolean isRestrictedBy = (relationCode == 3);  // 克我
         boolean isGeneratedBy = (relationCode == 4);   // 生我
 
@@ -68,7 +68,7 @@ public class TenGodCalculator {
 
             // 调用匹配方法
             if (isMatch(rule, isSameStem, isSameElement, isSameYinYang,
-                    isGenerates, isRestricts, isGeneratedBy, isRestrictedBy)) {
+                    isGenerates, isControls, isGeneratedBy, isRestrictedBy)) {
                 return tenGodName; // 找到了！直接返回 Key
             }
             Log.d("TenGodCalc", "规则: " + tenGodName +  " |relationCode=" + relationCode
@@ -89,7 +89,7 @@ public class TenGodCalculator {
      */
     private boolean isMatch(BaziRules.RelationRule rule,
                             boolean curSameStem, boolean curSameElement, boolean curSameYinYang,
-                            boolean curGenerates, boolean curRestricts,
+                            boolean curGenerates, boolean curControls,
                             boolean curGeneratedBy, boolean curRestrictedBy) {
 
         // 1. 检查 sameStem
@@ -105,10 +105,11 @@ public class TenGodCalculator {
         if (rule.getGenerates() != null && rule.getGenerates() != curGenerates) return false;
 
         // 5. 检查 restricts (我克 / 财) - 注意 JSON 里可能叫 "controls"
-        if (rule.getRestricts() != null && rule.getRestricts() != curRestricts) return false;
+        if (rule.getControls() != null && rule.getControls() != curControls) return false;
 
         // ...以此类推检查 generatedBy, restrictedBy ...
-
+        if (rule.getRestricts() != null && rule.getRestricts() != curRestrictedBy) return false;   // 克我 官杀
+        if (rule.getGeneratedBy() != null && rule.getGeneratedBy() != curGeneratedBy) return false; //生我 印
         // 如果所有非 null 的条件都通过了
         return true;
     }
