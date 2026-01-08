@@ -128,7 +128,7 @@ public class FourPillarsService implements IFourPillarsService {
         Collections.sort(jieQiTimeLine);
 
         // 4. 传给计算器
-        List<LuckPillar> luckPillars = luckPillarCalculator.calculateLuckPillars(input,
+         List<LuckPillar> luckPillars = luckPillarCalculator.calculateLuckPillars(input,
                 yearPillar, monthPillar,
                 input.getGender() == Gender.FEMALE.MALE,
                 dayMaster,jieQiTimeLine);
@@ -142,6 +142,7 @@ public class FourPillarsService implements IFourPillarsService {
 
         // 结果组装：整合所有计算结果为统一数据模型
         FourPillarsResult result = new FourPillarsResult();
+        result.setName(input.getName());
         result.setBirthDate(utcDate);
         result.setLocalDateTime(inputDateTime);
         result.setYearPillar(yearPillar);
