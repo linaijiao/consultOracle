@@ -20,6 +20,8 @@ public class FourPillarsResult {
     private int inputDay;
     private int inputHour;
 
+    // 命主姓名
+    private String name;
     /** 出生日期 */
     private LocalDateTime localDateTime;
 
@@ -151,5 +153,12 @@ public class FourPillarsResult {
 
     public void setLocalDateTime(LocalDateTime localDateTime) {
         this.localDateTime = localDateTime;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
