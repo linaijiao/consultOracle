@@ -2,6 +2,7 @@ package com.taodev.zhouyi.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,7 +19,10 @@ public class LuckPillar implements Serializable {
 
     // === 2. 时间定位信息 (对应表格中间部分) ===
     private int startAge;     // 存整岁，比如 4
+    private int startNominalAge;
     private String startAgeDesc; //存 "4岁2个月15天"
+    // 精确的交运时刻
+    private Date transitionDate;
     private int startYear;    // 起运年份 (e.g. 1996)
     private int endYear;      // 结束年份 (e.g. 2005)
 
@@ -29,19 +33,22 @@ public class LuckPillar implements Serializable {
 
     // === 3. 下属流年列表 (对应表格最下面的一串字) ===
     // 这一步大运管辖的 10 个流年 (e.g. "丙子", "丁丑"...)
-    private List<String> liuNianList;
+    private List<String> yearlyLuckList;
 
     // === 构造函数 ===
-    public LuckPillar(String tenGod, String stem, String branch,String lifeStage, int startAge,String startAgeDesc, int startYear) {
+    public LuckPillar(String tenGod, String stem, String branch,String lifeStage, int startAge, String startAgeDesc,int startNominalAge, int startYear,
+                      Date transitionDate) {
         this.tenGod = tenGod;
         this.stem = stem;
         this.branch = branch;
         this.lifeStage = lifeStage;
         this.startAge = startAge;
         this.startAgeDesc = startAgeDesc;
+        this.startNominalAge = startNominalAge;
         this.startYear = startYear;
+        this.transitionDate = transitionDate;
         this.endYear = startYear + 9; // 大运管10年
-        this.liuNianList = new ArrayList<>();
+        this.yearlyLuckList = new ArrayList<>();
     }
 
     // === Getter / Setter 方法 ===
@@ -65,6 +72,28 @@ public class LuckPillar implements Serializable {
     public int getEndYear() {
         return endYear;
     }
-    public List<String> getLiuNianList() { return liuNianList; }
-    public void setLiuNianList(List<String> list) { this.liuNianList = list; }
+    public List<String> getYearlyLuckList() { return yearlyLuckList; }
+    public void setYearlyLuckList(List<String> list) { this.yearlyLuckList = list; }
+    public int getStartNominalAge() {
+        return startNominalAge;
+    }
+
+    public void setStartNominalAge(int startNominalAge) {
+        this.startNominalAge = startNominalAge;
+    }
+    public String getStartAgeDesc() {
+        return startAgeDesc;
+    }
+
+    public void setStartAgeDesc(String startAgeDesc) {
+        this.startAgeDesc = startAgeDesc;
+    }
+
+    public Date getTransitionDate() {
+        return transitionDate;
+    }
+
+    public void setTransitionDate(Date transitionDate) {
+        this.transitionDate = transitionDate;
+    }
 }
