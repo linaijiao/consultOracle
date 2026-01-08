@@ -1,5 +1,7 @@
 package com.taodev.zhouyi.calendar;
 
+import android.icu.util.Calendar;
+
 import com.taodev.zhouyi.domain.BaziRules;
 import com.taodev.zhouyi.domain.FourPillarsInput;
 import com.taodev.zhouyi.domain.FourPillarsResult;
@@ -70,10 +72,17 @@ public class LuckPillarCalculator {
        int branchIndex = branches.indexOf(startBranch);
        // 1.4 循环推算 8 步大运 (通常排 8 步，或者 10 步)
        // 注意：大运是不算起运岁数的，起运岁数(比如 4岁上运)需要另外的算法，这里先默认每10年一运
-       int startYear = 0; // 起始岁数占位，具体需要结合节气计算
-       Date BirthTimeUtc = TimeConverter.convertToUtc(input);
-       StartAgeInfo ageInfo = calculatePreciseStartAge(BirthTimeUtc, isForward, jieQiMap);
-       for (int i = 1; i <= 10; i++) { // 从 1 开始，因为大运从月柱的下一个开始
+       // 起始岁数占位，具体需要结合节气计算
+       // 虚岁
+       Date birthTimeUtc = TimeConverter.convertToUtc(input);
+
+       StartAgeInfo ageInfo = calculatePreciseStartAge(birthTimeUtc, isForward, jieQiMap);
+       // 使用 Calendar 实例
+       Calendar cal = Calendar.getInstance();
+       cal.setTime(ageInfo.getTransitionDate());
+       // 安全地获取年份
+       int baseStartYear = cal.get(Calendar.YEAR);
+       for (int i = 0; i < 10; i++) { // 从 1 开始，因为大运从月柱的下一个开始
            // 移动一步
            if (isForward) {
                stemIndex = (stemIndex + 1) % 10;
@@ -85,14 +94,32 @@ public class LuckPillarCalculator {
 
            String nextStem = stems.get(stemIndex);
            String nextBranch = branches.get(branchIndex);
-           // 简单模拟起运时间：假设第一步运从 10 岁开始 (实际需精确计算)
-           // 这里仅仅是生成大运的干支柱子
-           startYear =ageInfo.age + (i * 10);
+           // 生成大运的干支柱子
+
+           // 计算这步大运的起始年 (2011, 2021...)
+           int currentStartYear = baseStartYear + (i * 10);
+
+           //每个大运起始岁数  虚岁
+           int startNominalAge = currentStartYear -input.getLocalDateTime().getYear() +1;
+
            // 计算大运天干的十神
            String tenGod = tenGodCalculator.calculate(dayMaster, nextStem);
            // 计算大运长生（衰旺）
            String luckLifeStage = attributesCalculator.calculateTwelveLongevities(dayMaster, nextBranch);
-           LuckPillar luck = new LuckPillar(tenGod, nextStem, nextBranch, luckLifeStage, ageInfo.getAge(),ageInfo.getDesc(), startYear);
+           LuckPillar luck = new LuckPillar(tenGod, nextStem, nextBranch, luckLifeStage, ageInfo.getAge(),ageInfo.getDesc(),startNominalAge, currentStartYear,ageInfo.getTransitionDate());
+           //计算当前大运未来十年的干支
+           int birthYear = input.getLocalDateTime().getYear();
+           List<String> yearlyLuckList = new ArrayList<>();
+           for(int k = 0; k < 10; k++){
+               //从当前大运起始年开始算
+               int currentYear = currentStartYear + k;
+               // 用公历年份查干支表；公元4年是甲子年
+               int offset = currentYear - 4;
+               int index = offset % 60;
+               if (index < 0) index += 60;
+               yearlyLuckList.add(rules.getSexagenaryCycle().get(index));
+           }
+           luck.setYearlyLuckList(yearlyLuckList);
 
            // 计算大运的纳音
            // String tenGod = tenGodCalculator.calculate(yearPillar.getStem(), nextStem); // 这里的参照点看需求
@@ -115,10 +142,27 @@ public class LuckPillarCalculator {
         }
 
         // 兜底：如果找不到节气数据，默认1岁
-        if (targetJieQi == null) return new StartAgeInfo(1, "1岁0个月0天");
+        if (targetJieQi == null){
+            // 1. 计算兜底的交运时间：直接在出生时间上 + 1年
+            Calendar c = Calendar.getInstance();
+            c.setTime(birthTimeUtc);
+            // 年份 + 1
+            c.add(Calendar.YEAR, 1);
+            Date fallbackStartTime = c.getTime();
+            return new StartAgeInfo(1, "1岁0个月0天",fallbackStartTime);
+        }
 
-// 1. 获取毫秒差值
+        // 1. 获取毫秒差值
         long diffMillis = Math.abs(targetJieQi.getTime() - birthTimeUtc.getTime());
+
+//        // ★★★ 计算具体的交运日期 ★★★
+//        // 原理：真实时间差 * 120 = 大运推迟的时间
+//        // 直接用毫秒算精度更高，不用转分钟
+//        long luckAddMillis = diffMillis * 120;
+//
+//        // 出生时间 + 推迟时间 = 交运时间
+
+
 
         // 2. 转换为实际天数 (用 double 保持精度)
         double totalRealDays = diffMillis / (1000.0 * 60 * 60 * 24);
@@ -140,6 +184,12 @@ public class LuckPillarCalculator {
         // 1个月 = 30天 (命理通常按30天一月计算，或者说 1小时=5天)
         int days = (int) (remainLuckMonths * 30);
 
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(birthTimeUtc);
+        cal.add(Calendar.YEAR, years);
+        cal.add(Calendar.MONTH, months);
+        cal.add(Calendar.DAY_OF_MONTH, days);
+        Date jiaoYunTimestamp = cal.getTime();
         // 4. 格式化输出
         // 细节优化：如果算出来是 0岁，通常习惯显示 "出生后X个月起运" 或者 "0岁..."
         // 如果算出来 months 是 12 (极少情况由于精度问题)，应该进位
@@ -156,7 +206,7 @@ public class LuckPillarCalculator {
 
         String desc = finalAge + "岁" + months + "个月" + days + "天";
 
-        return new StartAgeInfo(finalAge, desc);
+        return new StartAgeInfo(finalAge, desc, jiaoYunTimestamp);
     }
     /**
      * 【私有辅助】计算起运岁数 (核心算法：3天=1年)
@@ -164,8 +214,25 @@ public class LuckPillarCalculator {
 
     public static class StartAgeInfo {
         private int age;           // 整岁 (用于推算年份)
+        private int nominalAge;
         private String desc;       // 描述文本 (如 "4岁2个月5天")
         private Date startLuckTime; // 精确的起运时刻 (可选，用于高级排盘)
+        private Date transitionDate; // 精确的交运时刻 (可选，用于高级排盘)
+        public int getNominalAge() {
+            return nominalAge;
+        }
+
+        public void setNominalAge(int nominalAge) {
+            this.nominalAge = nominalAge;
+        }
+
+        public Date getTransitionDate() {
+            return transitionDate;
+        }
+
+        public void setTransitionDate(Date transitionDate) {
+            this.transitionDate = transitionDate;
+        }
 
         public int getAge() {
             return age;
@@ -175,9 +242,10 @@ public class LuckPillarCalculator {
             return desc;
         }
 
-        public StartAgeInfo(int age, String desc) {
+        public StartAgeInfo(int age, String desc,Date transitionDate) {
             this.age = age;
             this.desc = desc;
+            this.transitionDate = transitionDate;
         }
     }
     /**
