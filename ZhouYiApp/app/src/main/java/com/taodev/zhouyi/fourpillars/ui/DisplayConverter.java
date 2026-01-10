@@ -1,9 +1,12 @@
 package com.taodev.zhouyi.fourpillars.ui;
 
+import android.icu.util.Calendar;
+
 import com.taodev.zhouyi.domain.FourPillarsResult;
 import com.taodev.zhouyi.domain.LuckPillar;
 import com.taodev.zhouyi.domain.Pillar;
 
+import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +19,9 @@ public class DisplayConverter {
         // 1. 格式化基本信息
         LocalDateTime date = result.getLocalDateTime();
         if (date != null) {
-            model.basicInfoText = String.format("%d年%d月%d日 %d时 (输入时间)",
+            model.basicInfoText = String.format(
+                    "命主姓名：%s。\n出生公历: %d年%d月%d日 %d时 (输入时间)",
+                    result.getName(),
                     date.getYear(),
                     date.getMonthValue(), // 注意：getMonth()返回英文枚举，getMonthValue()才是数字
                     date.getDayOfMonth(),
@@ -36,11 +41,26 @@ public class DisplayConverter {
 
         // 3. 直接传递对象列表
         // 直接把 List<LuckPillar> 给 DisplayModel
-        // 这样 Adapter 取出里面的 startYear, age, liuNianList 来显示
+        // 这样 Adapter 取出里面的 startYear, age, yearlyLuckList 来显示
         for (LuckPillar luck : result.getLuckPillars()) {
             // 调用小助手 convertLuckPillar
-            model.luckPillars.add(convertLuckPillar(luck));
+            model.luckPillars.add(convertLuckPillar(result,luck));
         }
+        // 4. 起运日期，交运日期
+        // 使用 Calendar 实例
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(result.getLuckPillars().get(0).getTransitionDate());
+        // 安全地获取年份
+        int baseStartYear = cal.get(Calendar.YEAR);
+        model.startLuckInfo = String.format(
+                "起运周岁：%s,交运日期: %d年%d月%d日",
+                result.getLuckPillars().get(0).getStartAgeDesc(),
+                cal.get(Calendar.YEAR),
+                cal.get(java.util.Calendar.MONTH),
+                cal.get(java.util.Calendar.DAY_OF_MONTH),
+                cal.get(java.util.Calendar.HOUR)
+        );
+
 
         return model;
     }
@@ -79,18 +99,19 @@ public class DisplayConverter {
             for (FourPillarsDisplayModel.HiddenStemUiItem item : uiModel.hiddenStemItems) {
                 // 拼接方式：天干 + 空格
                 // 效果："癸 辛 己 "
-                sb.append(item.stem).append(" ");
+//                sb.append(item.stem).append(" ");
 
-                // 如果你想显示十神，可以改成这样：
-                // sb.append(item.stem).append("(").append(item.tenGod).append(") ");
+                // 显示十神，可以改成这样：
+                 sb.append(item.stem).append("(").append(item.god).append(") ");
             }
         }
+        uiModel.hiddenStemString = sb.toString();
         uiModel.lifeStage =rawPillar.getLifeStage();
         uiModel.naYin = rawPillar.getNaYin();
         uiModel.kongWang = rawPillar.getKongWang();
         // ... 处理藏干 List ...
 
-        return uiModel; // 把做好的熟肉递出去
+        return uiModel;
     }
 
     /**
@@ -122,16 +143,33 @@ public class DisplayConverter {
 
         return uiHiddenStemList;
     }
-    private static FourPillarsDisplayModel.LuckPillarUiModel convertLuckPillar(LuckPillar raw) {
+    private static FourPillarsDisplayModel.LuckPillarUiModel convertLuckPillar(FourPillarsResult fourPillarsResult, LuckPillar raw) {
         FourPillarsDisplayModel.LuckPillarUiModel luckPillarUiModel = new FourPillarsDisplayModel.LuckPillarUiModel();
-        luckPillarUiModel.tenGod=raw.getGanZhi();
+        luckPillarUiModel.tenGod=raw.getTenGod();
         luckPillarUiModel.pillarName = raw.getGanZhi();
         luckPillarUiModel.lifeStage = raw.getLifeStage();
-        luckPillarUiModel.ageInfo = raw.getStartAge() +"岁";
-        luckPillarUiModel.startYear = raw.getStartYear() +"年";
-        luckPillarUiModel.endYear = raw.getEndYear() + "年";
+        //虛歲
+        int birthYear = fourPillarsResult.getBirthDate().getYear();
+//        luckPillarUiModel.ageInfo = (raw.getStartYear() - birthYear + 1) + "";
+        luckPillarUiModel.ageInfo = raw.getStartNominalAge() + "";
+        luckPillarUiModel.startYear = raw.getStartYear() +"";
+        luckPillarUiModel.endYear = raw.getEndYear() + "";
 
         // ... 赋值流年 list ...
+        List<String> yearlyLuckList = raw.getYearlyLuckList();
+        if (yearlyLuckList != null) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (String ganZhi : yearlyLuckList) {
+                //拼一个干支，换一行
+                stringBuilder.append(ganZhi).append("\n"); //
+            }
+            // 删除最后一个多余的换行符
+            if (stringBuilder.length() > 0) {
+                stringBuilder.setLength(stringBuilder.length() - 1);
+            }
+            luckPillarUiModel.yearlyLuckList = raw.getYearlyLuckList();
+            luckPillarUiModel.yearlyLuckListString = stringBuilder.toString();
+        }
         return luckPillarUiModel;
     }
 
