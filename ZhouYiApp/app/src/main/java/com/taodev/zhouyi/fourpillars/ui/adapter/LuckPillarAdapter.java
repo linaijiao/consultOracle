@@ -1,5 +1,6 @@
 package com.taodev.zhouyi.fourpillars.ui.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,8 +48,14 @@ public class LuckPillarAdapter extends RecyclerView.Adapter<LuckPillarAdapter.Vi
         // 2. 绑定数据 (根据你的 LuckPillar 字段)
         // 大运名字 (如: 戊寅)
         // 假设 XML 里叫 tv_luck_stem_branch，如果不确定，去 XML 确认一下 ID
+        if (holder.tvTenGod != null) {
+            holder.tvTenGod.setText(item.getTenGod());
+        }
         if (holder.tvStemBranch != null) {
             holder.tvStemBranch.setText(item.getPillarName());
+        }
+        if (holder.tvLifeStage != null) {
+            holder.tvLifeStage.setText(item.getLifeStage());
         }
         // 起运虚岁 (XML ID: tv_col_age)
         if (holder.tvAge != null) {
@@ -58,25 +65,40 @@ public class LuckPillarAdapter extends RecyclerView.Adapter<LuckPillarAdapter.Vi
         if (holder.tvStartYear != null) {
             holder.tvStartYear.setText(String.valueOf(item.getStartYear()));
         }
+        // 绑定中间的 10 行干支
+        holder.tvYearlyLuckList.setText(item.yearlyLuckListString);
+        // 绑定底部年份
+        holder.tvEndYear.setText(String.valueOf(item.endYear));
     }
 
     @Override
     public int getItemCount() {
+        int size = luckPillars == null ? 0 : luckPillars.size();
         // 告诉列表一共有多少个大运
-        return luckPillars == null ? 0 : luckPillars.size();
+        Log.d("DEBUG_ADAPTER", "大运列表数量: " + size);
+        return size;
     }
 
     // 内部类：拿着界面上的控件引用
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvTenGod;
         TextView tvStemBranch;
+        TextView tvLifeStage;
         TextView tvAge;
         TextView tvStartYear;
+        TextView tvYearlyLuckList;
+        TextView tvEndYear;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            tvTenGod = itemView.findViewById(R.id.tv_col_luck);
             tvStemBranch = itemView.findViewById(R.id.tv_luck_stem_branch);
+            tvLifeStage = itemView.findViewById(R.id.tv_luck_lifestage);
             tvAge = itemView.findViewById(R.id.tv_luck_age);
             tvStartYear = itemView.findViewById(R.id.tv_col_start_year);
+            tvYearlyLuckList = itemView.findViewById(R.id.tv_yearly_luck_list);
+            tvEndYear = itemView.findViewById(R.id.tv_col_end_year);
+
 
         }
     }
