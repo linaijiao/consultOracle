@@ -11,6 +11,7 @@
         <item>四川省</item>
         <item>湖北省</item>
         <item>山东省</item>
+        <item>甘肃省</item>
     </string-array>
 
     <!-- 省份对应的城市数组，注意顺序要与provinces保持一致 -->
@@ -100,5 +101,15 @@
         <item>临沂市</item>
         <item>淄博市</item>
         <item>济宁市</item>
+    </string-array>
+    <string-array name="cities_gansu">
+        <item>请选择城市</item>
+        <item>兰州市</item>
+        <item>嘉峪关市</item>
+        <item>金昌市</item>
+        <item>白银市</item>
+        <item>天水市</item>
+        <item>武威市</item>
+        <item>张掖市</item>
     </string-array>
 </resources>
