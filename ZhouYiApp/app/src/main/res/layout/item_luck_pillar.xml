@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="60dp"
+    android:layout_width="38dp"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:orientation="vertical"
     android:background="@drawable/bg_border">
     <!--十神    -->
@@ -11,7 +12,6 @@
         android:layout_height="30dp"
         android:gravity="center"
         android:text="伤官"
-        android:textStyle="bold"
         android:background="#F5F5F5"/>
     <!--    大运-->
     <TextView
@@ -19,15 +19,22 @@
         android:text="丁亥"
         android:gravity="center"
         android:layout_height="30dp"
+        android:textStyle="bold"
         android:layout_width="match_parent"/>
-
+    <!--    十二长生-->
+    <TextView
+        android:id="@+id/tv_luck_lifestage"
+        android:text="沐浴"
+        android:gravity="center"
+        android:layout_height="30dp"
+        android:layout_width="match_parent"/>
     <!--起运虚岁-->
     <TextView
         android:id="@+id/tv_luck_age"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:gravity="center"
-        android:text="7"/>
+        android:text="6"/>
     <!--    起始年-->
     <TextView
         android:id="@+id/tv_col_start_year"
@@ -37,16 +44,17 @@
         android:text="2011"/>
 
 
-    <TextView android:id="@+id/tv_year_0" android:layout_width="match_parent" android:layout_height="30dp" android:gravity="center" android:text="辛卯"/>
-    <TextView android:id="@+id/tv_year_1" android:layout_width="match_parent" android:layout_height="30dp" android:gravity="center" android:text="壬辰"/>
-    <TextView android:id="@+id/tv_year_2" android:layout_width="match_parent" android:layout_height="30dp" android:gravity="center" android:text="癸巳"/>
-    <TextView android:id="@+id/tv_year_3" android:layout_width="match_parent" android:layout_height="30dp" android:gravity="center" android:text="甲午"/>
-    <TextView android:id="@+id/tv_year_4" android:layout_width="match_parent" android:layout_height="30dp" android:gravity="center" android:text="乙未"/>
-    <TextView android:id="@+id/tv_year_5" android:layout_width="match_parent" android:layout_height="30dp" android:gravity="center" android:text="丙申"/>
-    <TextView android:id="@+id/tv_year_6" android:layout_width="match_parent" android:layout_height="30dp" android:gravity="center" android:text="丁酉"/>
-    <TextView android:id="@+id/tv_year_7" android:layout_width="match_parent" android:layout_height="30dp" android:gravity="center" android:text="戊戌"/>
-    <TextView android:id="@+id/tv_year_8" android:layout_width="match_parent" android:layout_height="30dp" android:gravity="center" android:text="己亥"/>
-    <TextView android:id="@+id/tv_year_9" android:layout_width="match_parent" android:layout_height="30dp" android:gravity="center" android:text="庚子"/>
+    <TextView
+        android:id="@+id/tv_yearly_luck_list"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:text="戊午\n己未\n庚申\n辛酉\n壬戌\n癸亥\n甲子\n乙丑\n丙寅\n丁卯"
+        android:textColor="#000000"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tv_col_end_year"
