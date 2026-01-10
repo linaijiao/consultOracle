@@ -60,10 +60,11 @@ public class FourPillarsInput {
     private String province;
     private String city;
 
-    public FourPillarsInput(String name,int year, int month, int day, int hour,int minute ,Gender gender) {
+    public FourPillarsInput(String name,int year, int month, int day, int hour,int minute ,Gender gender,String city) {
         this.name = name;
         this.localDateTime = LocalDateTime.of(year, month, day, hour, minute);
         this.gender=gender;
+        this.city = city;
 
     }
     public FourPillarsInput() {
@@ -78,8 +79,23 @@ public class FourPillarsInput {
         this.localDateTime = localDateTime;
     }
 
-    public String getTimezoneIdStr() {
-        return "Asia/" + timezoneIdStr;
+    public String getTimezoneIdStr(String city) {
+        String cityArrayName = city;
+        if (cityArrayName == null || !cityArrayName.startsWith("cities_")) {
+            return "Asia/" + timezoneIdStr;
+        }
+        // 提取 "shanghai"（去掉前缀 "cities_"）
+        String cityPinyin = city.substring("cities_".length());
+
+        // 首字母大写 → "Shanghai"
+        if (!cityPinyin.isEmpty()) {
+            cityPinyin = cityPinyin.substring(0, 1).toUpperCase() +
+                    (cityPinyin.length() > 1 ? cityPinyin.substring(1) : "");
+        }
+
+        // 特殊处理：只有上海/北京时间是中国大陆标准时区，其他省份其实也都是同一个时区
+        // 所以这里其实所有情况都可以返回 "Shanghai"，但如果你想保持逻辑一致，可以返回处理后的
+        return "Asia/" + cityPinyin; // 返回 "Shanghai"、"Beijing" 等（实际都会映射到 Asia/Shanghai）
     }
 
     public void setTimezoneIdStr(String timezoneIdStr) {
