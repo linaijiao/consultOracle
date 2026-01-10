@@ -15,6 +15,11 @@ public class    FourPillarsDisplayModel implements Serializable {
     //四柱
     public List<PillarUiModel> pillars = new ArrayList<>();
 
+    //节气信息
+    public String solarTermsInfo;
+    //起运周岁、交运日期
+    public String startLuckInfo;
+
     // 3. 大运列表
     public List<LuckPillarUiModel> luckPillars = new ArrayList<>();
 
@@ -97,6 +102,10 @@ public class    FourPillarsDisplayModel implements Serializable {
         public String ageInfo;
         // 始于 (如：2011)
         public String startYear;
+        //流年，从大运起始年的干支到大运终止年的干支
+        public List<String> yearlyLuckList;
+        // 给 TextView 显示用的字符串
+        public String yearlyLuckListString = "";
         // 止于 (如：2020)
         public String endYear;
         public String getTenGod() {
@@ -122,6 +131,12 @@ public class    FourPillarsDisplayModel implements Serializable {
         public String getEndYear() {
             return endYear;
         }
+        public List<String> getYearlyLuckList() {
+            return yearlyLuckList;
+        }
 
+        public void setYearlyLuckList(List<String> yearlyLuckList) {
+            this.yearlyLuckList = yearlyLuckList;
+        }
     }
 }
