@@ -213,6 +213,8 @@ public class FourPillarsActivity extends AppCompatActivity {
                 return "cities_hubei";
             case "山东省":
                 return "cities_shandong";
+            case "甘肃省":
+                return "cities_gansu";
             default:
                 return "";
         }
