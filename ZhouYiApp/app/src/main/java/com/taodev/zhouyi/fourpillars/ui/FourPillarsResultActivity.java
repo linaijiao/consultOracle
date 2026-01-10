@@ -25,6 +25,10 @@ public class FourPillarsResultActivity extends AppCompatActivity {
 
     // 1. 定义 UI 控件
     private TextView tvBasicInfo;
+    private TextView tvOtherInfo;
+    private TextView tvYearColumn,tvMonthColumn,tvDayColumn,tvHourColumn;
+    private TextView tvYearKongwang,tvMonthKongwang,tvDayKongwang,tvHourKongwang;
+    private TextView tvYearLifeStage,tvMonthLifeStage,tvDayLifeStage,tvHourLifeStage;
     private TextView tvYearTenGod, tvYearStem, tvYearBranch, tvYearHiddenStems, tvYearNaYin;
     private TextView tvMonthTenGod, tvMonthStem, tvMonthBranch, tvMonthHidden, tvMonthNaYin;
     private TextView tvDayTenGod, tvDayStem, tvDayBranch, tvDayHidden, tvDayNaYin;
@@ -78,17 +82,21 @@ public class FourPillarsResultActivity extends AppCompatActivity {
             } else {
                 Log.e("ResultActivity", "大运数据为空");
             }
+            // 4. 设置起运，交运日期
+            tvOtherInfo.setText(model.startLuckInfo);
         });
     }
 
     private void setFourPillars(List<FourPillarsDisplayModel.PillarUiModel> pillars) {
         if (pillars == null || pillars.size() < 4) return;
-
+        tvYearColumn.setText(pillars.get(0).getColumnName());
         // 年柱
         tvYearTenGod.setText(pillars.get(0).getHeadTenGod());
         tvYearStem.setText(pillars.get(0).getStemName());
         tvYearBranch.setText(pillars.get(0).getBranchName());
+        tvYearLifeStage.setText(pillars.get(0).getLifeStage());
         tvYearNaYin.setText("[" + pillars.get(0).getNaYin() + "]");
+        tvYearKongwang.setText(pillars.get(0).getKongWang());
 
         // 藏干
         StringBuilder yearHiddenBuilder = new StringBuilder();
@@ -105,10 +113,13 @@ public class FourPillarsResultActivity extends AppCompatActivity {
         tvYearHiddenStems.setText(pillars.get(0).hiddenStemString);
 
         // 月柱（复制改索引）
+        tvMonthColumn.setText(pillars.get(1).getColumnName());
         tvMonthTenGod.setText(pillars.get(1).getHeadTenGod());
         tvMonthStem.setText(pillars.get(1).getStemName());
         tvMonthBranch.setText(pillars.get(1).getBranchName());
+        tvMonthLifeStage.setText(pillars.get(1).getLifeStage());
         tvMonthNaYin.setText("[" + pillars.get(1).getNaYin() + "]");
+        tvMonthKongwang.setText(pillars.get(1).getKongWang());
 
 
         StringBuilder monthHiddenBuilder = new StringBuilder();
@@ -122,10 +133,13 @@ public class FourPillarsResultActivity extends AppCompatActivity {
         tvMonthHidden.setText(pillars.get(1).hiddenStemString);
 
         // 日柱
+        tvDayColumn.setText(pillars.get(2).getColumnName());
         tvDayTenGod.setText(pillars.get(2).getHeadTenGod());
         tvDayStem.setText(pillars.get(2).getStemName());
         tvDayBranch.setText(pillars.get(2).getBranchName());
+        tvDayLifeStage.setText(pillars.get(2).getLifeStage());
         tvDayNaYin.setText("[" + pillars.get(2).getNaYin() + "]");
+        tvDayKongwang.setText(pillars.get(2).getKongWang());
 
         StringBuilder dayHiddenBuilder = new StringBuilder();
         List<FourPillarsDisplayModel.HiddenStemUiItem> dayHiddenList = pillars.get(2).getHiddenStemItems();
@@ -138,10 +152,13 @@ public class FourPillarsResultActivity extends AppCompatActivity {
         tvDayHidden.setText(pillars.get(2).hiddenStemString);
 
         // 时柱
+        tvHourColumn.setText(pillars.get(3).getColumnName());
         tvHourTenGod.setText(pillars.get(3).getHeadTenGod());
         tvHourStem.setText(pillars.get(3).getStemName());
         tvHourBranch.setText(pillars.get(3).getBranchName());
+        tvHourLifeStage.setText(pillars.get(3).getLifeStage());
         tvHourNaYin.setText("[" + pillars.get(3).getNaYin() + "]");
+        tvHourKongwang.setText(pillars.get(3).getKongWang());
 
         StringBuilder hourHiddenBuilder = new StringBuilder();
         List<FourPillarsDisplayModel.HiddenStemUiItem> hourHiddenList = pillars.get(3).getHiddenStemItems();
@@ -161,6 +178,7 @@ public class FourPillarsResultActivity extends AppCompatActivity {
         // 这里的 ID 必须和你 activity_fourpillars_result.xml 里的对应！
         //  xml 里还没有这些 ID，请去添加
         tvBasicInfo = findViewById(R.id.base_info);
+        tvOtherInfo = findViewById(R.id.other_info);
 
 //        tvYearPillar = findViewById(R.id.layout_year);
         // 四柱容器（LinearLayout）
@@ -169,33 +187,45 @@ public class FourPillarsResultActivity extends AppCompatActivity {
         LinearLayout layoutDay = findViewById(R.id.layout_day);
         LinearLayout layoutHour = findViewById(R.id.layout_hour);
 
+        tvYearColumn = layoutYear.findViewById(R.id.tv_pillar_column);
         tvYearTenGod = layoutYear.findViewById(R.id.tv_stem_tengod);
         tvYearStem = layoutYear.findViewById(R.id.tv_stem);
         tvYearBranch = layoutYear.findViewById(R.id.tv_branch);
         tvYearHiddenStems = layoutYear.findViewById(R.id.tv_hidden_stems);
-        tvYearNaYin = layoutYear.findViewById(R.id.tv_nayin);
+        tvYearLifeStage = layoutYear.findViewById(R.id.tv_pillar_lifeStage);
+        tvYearNaYin = layoutYear.findViewById(R.id.tv_pillar_nayin);
+        tvYearKongwang = layoutYear.findViewById(R.id.tv_pillar_kongwang);
 
         // 月柱（复制粘贴改变量名）
+        tvMonthColumn = layoutMonth.findViewById(R.id.tv_pillar_column);
         tvMonthTenGod = layoutMonth.findViewById(R.id.tv_stem_tengod);
         tvMonthStem = layoutMonth.findViewById(R.id.tv_stem);
         tvMonthBranch = layoutMonth.findViewById(R.id.tv_branch);
         tvMonthHidden = layoutMonth.findViewById(R.id.tv_hidden_stems);
-        tvMonthNaYin = layoutMonth.findViewById(R.id.tv_nayin);
+        tvMonthLifeStage = layoutMonth.findViewById(R.id.tv_pillar_lifeStage);
+        tvMonthNaYin = layoutMonth.findViewById(R.id.tv_pillar_nayin);
+        tvMonthKongwang = layoutMonth.findViewById(R.id.tv_pillar_kongwang);
 
 
         // 日柱
+        tvDayColumn = layoutDay.findViewById(R.id.tv_pillar_column);
         tvDayTenGod = layoutDay.findViewById(R.id.tv_stem_tengod);
         tvDayStem = layoutDay.findViewById(R.id.tv_stem);
         tvDayBranch = layoutDay.findViewById(R.id.tv_branch);
         tvDayHidden = layoutDay.findViewById(R.id.tv_hidden_stems);
-        tvDayNaYin = layoutDay.findViewById(R.id.tv_nayin);
+        tvDayLifeStage = layoutDay.findViewById(R.id.tv_pillar_lifeStage);
+        tvDayNaYin = layoutDay.findViewById(R.id.tv_pillar_nayin);
+        tvDayKongwang = layoutDay.findViewById(R.id.tv_pillar_kongwang);
 
         // 时柱
+        tvHourColumn = layoutHour.findViewById(R.id.tv_pillar_column);
         tvHourTenGod = layoutHour.findViewById(R.id.tv_stem_tengod);
         tvHourStem = layoutHour.findViewById(R.id.tv_stem);
         tvHourBranch = layoutHour.findViewById(R.id.tv_branch);
         tvHourHidden = layoutHour.findViewById(R.id.tv_hidden_stems);
-        tvHourNaYin = layoutHour.findViewById(R.id.tv_nayin);
+        tvHourLifeStage = layoutHour.findViewById(R.id.tv_pillar_lifeStage);
+        tvHourNaYin = layoutHour.findViewById(R.id.tv_pillar_nayin);
+        tvHourKongwang = layoutHour.findViewById(R.id.tv_pillar_kongwang);
 
         rvLuckPillars = findViewById(R.id.rv_luck_list);
     }
@@ -205,12 +235,11 @@ public class FourPillarsResultActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvLuckPillars.setLayoutManager(layoutManager);
-
+        rvLuckPillars.setNestedScrollingEnabled(false);
         // 初始化 Adapter (先传一个空列表防止报错)
         luckAdapter = new LuckPillarAdapter(new ArrayList<>());
         rvLuckPillars.setAdapter(luckAdapter);
     }
-
     // 从 Intent 中提取数据，兼容旧的 String 传递方式和新的 Object 传递方式
     private FourPillarsInputUiModel getInputData() {
         Bundle extras = getIntent().getExtras();
