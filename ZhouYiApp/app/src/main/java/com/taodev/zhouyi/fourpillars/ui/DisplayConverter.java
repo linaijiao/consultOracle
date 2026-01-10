@@ -79,7 +79,11 @@ public class DisplayConverter {
         uiModel.columnName = title; // 设置标题 "年柱"
         uiModel.stemName = rawPillar.getStem();
         uiModel.branchName = rawPillar.getBranch();
-        uiModel.headTenGod = rawPillar.getStemTenGod();
+        if ("日柱".equals(title)){
+            uiModel.headTenGod = "日元";
+        }else {
+            uiModel.headTenGod = rawPillar.getStemTenGod();
+        }
         // 1. 获取源数据 (Domain List)
         List<Pillar.HiddenStemInfo> sourceList = rawPillar.getHiddenStemInfos();
         // 2. 初始化目标列表 (UI List)
