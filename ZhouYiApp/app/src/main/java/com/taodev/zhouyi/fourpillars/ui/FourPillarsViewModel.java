@@ -68,10 +68,11 @@ public class FourPillarsViewModel extends AndroidViewModel {
             try {
                 Log.d("VIEWMODEL_CALCULATE", "uiInput！ :" +
                         uiInput.year+ uiInput.month+ uiInput.day+
-                        uiInput.hour+uiInput.minute+ uiInput.gender);
+                        uiInput.hour+uiInput.minute+ uiInput.gender +
+                        uiInput.city);
                 // A. 把 UI 模型转成 领域模型 (Input)
                 FourPillarsInput domainInput = new FourPillarsInput(
-                        uiInput.year, uiInput.month, uiInput.day, uiInput.hour,uiInput.minute, uiInput.gender
+                uiInput.name,uiInput.year, uiInput.month, uiInput.day, uiInput.hour,uiInput.minute, uiInput.gender,uiInput.city
                 );
 
                 // B. 【核心】调用 Facade 进行计算
