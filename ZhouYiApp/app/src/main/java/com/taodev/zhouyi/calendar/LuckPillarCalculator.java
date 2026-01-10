@@ -187,9 +187,12 @@ public class LuckPillarCalculator {
         Calendar cal = Calendar.getInstance();
         cal.setTime(birthTimeUtc);
         cal.add(Calendar.YEAR, years);
-        cal.add(Calendar.MONTH, months);
         cal.add(Calendar.DAY_OF_MONTH, days);
+        cal.add(Calendar.MONTH, months);
         Date jiaoYunTimestamp = cal.getTime();
+//        long luckDurationMillis = diffMillis * 120;
+//        long jiaoYunTimes = birthTimeUtc.getTime() + luckDurationMillis;
+//        Date jiaoYunTimestamp = new Date(jiaoYunTimes);
         // 4. 格式化输出
         // 细节优化：如果算出来是 0岁，通常习惯显示 "出生后X个月起运" 或者 "0岁..."
         // 如果算出来 months 是 12 (极少情况由于精度问题)，应该进位
