@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="12dp"
     tools:context=".fourpillars.ui.FourPillarsResultActivity">
 
     <LinearLayout
@@ -14,204 +15,212 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
             android:text="四柱八字排盘结果"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_gravity="center_horizontal"
+            android:textStyle="bold" />
+
+
+            <!--页面实际展示效果-->
+        <!-- 基本信息 -->
+        <TextView
+            android:id="@+id/base_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="主姓名: 张三, 出生地: 北京朝阳。\n生公历: 2005年12月23日8时37分(北京时间), 星期五。\n生农历: 乙酉年十一月廿三日辰时。"
+            android:textSize="16sp"
             android:layout_marginBottom="16dp"/>
 
-        <TextView
-            android:id="@+id/textViewResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="在这里显示排盘结果"/>
-
-
-        <!--页面实际展示效果-->
-    <!-- 基本信息 -->
-    <TextView
-        android:id="@+id/base_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="主姓名: 张三, 出生地: 北京朝阳。\n生公历: 2005年12月23日8时37分(北京时间), 星期五。\n生农历: 乙酉年十一月廿三日辰时。"
-        android:textSize="16sp"
-        android:layout_marginBottom="16dp"/>
-
-    <!-- 四柱八字表头 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="乾造"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
-        <!-- 年柱       -->
-        <include
-            android:id="@+id/layout_year"
-            layout="@layout/layout_pillar_item" />
-        <!-- 月柱       -->
-        <include
-            android:id="@+id/layout_month"
-            layout="@layout/layout_pillar_item" />
-        <!-- 日主       -->
-        <include
-            android:id="@+id/layout_day"
-            layout="@layout/layout_pillar_item" />
-        <!-- 时柱       -->
-        <include
-            android:id="@+id/layout_hour"
-            layout="@layout/layout_pillar_item" />
-
-    </LinearLayout>
-    <!-- 衰旺信息 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="衰旺"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="临官"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="长生"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="死"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="墓"
-            android:gravity="center"
-            android:textSize="16sp"/>
-    </LinearLayout>
-
-    <!-- 纳音信息 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="纳音"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="泉中水"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="霹雷火"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="白蜡金"
-            android:gravity="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="长流水"
-            android:gravity="center"
-            android:textSize="16sp"/>
-    </LinearLayout>
-
-    <!-- 其他信息 -->
-    <TextView
-        android:id="@+id/other_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="雪2005年12月7日8时33分, 小寒2006年1月5日19时47分\n运周岁: 5岁4个月0天, 交运日期: 4月23日(公历)。"
-        android:textSize="16sp"
-        android:layout_marginTop="16dp"/>
+        <!-- 四柱八字表头 -->
+        <!-- 衰旺信息 -->
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <!-- 年柱       -->
 
             <LinearLayout
-                android:orientation="vertical" android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="wrap_content">
-                <TextView android:text="大运"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"/>
+                android:layout_width="wrap_content"
+                android:layout_height="310dp"
+                android:orientation="vertical"
+                android:weightSum="7">
 
-                <TextView android:text="虚岁"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="30dp"
-                    android:layout_weight="1"/>
-                <TextView android:text="始于"
-                    android:layout_height="wrap_content"
-                    android:layout_width="30dp"
-                    android:layout_weight="1"/>
-                <TextView android:text="流年"
+                    android:layout_weight="1"
                     android:gravity="center"
+                    android:text="四柱"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="十神"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:gravity="center"
+                    android:text="乾造"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:gravity="center"
+                    android:text="地支"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="藏干"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2 " />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="衰旺"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="纳音"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="空亡"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <include
+                android:id="@+id/layout_year"
+                layout="@layout/layout_pillar_item" />
+            <!-- 月柱       -->
+            <include
+                android:id="@+id/layout_month"
+                layout="@layout/layout_pillar_item" />
+            <!-- 日主       -->
+            <include
+                android:id="@+id/layout_day"
+                layout="@layout/layout_pillar_item" />
+            <!-- 时柱       -->
+            <include
+                android:id="@+id/layout_hour"
+                layout="@layout/layout_pillar_item" />
+
+        </LinearLayout>
+
+        <!-- 其他信息 -->
+        <TextView
+            android:id="@+id/other_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="雪2005年12月7日8时33分, 小寒2006年1月5日19时47分\n运周岁: 5岁4个月0天, 交运日期: 4月23日(公历)。"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_width="wrap_content"/>
-                <TextView android:text="止于"
+                    android:gravity="center"
+                    android:text="十神" />
+
+                <TextView
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_width="wrap_content"/>
+                    android:gravity="center"
+                    android:text="大运" />
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="长生" />
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="周岁" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="315dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="始于" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="流年" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text="止于" />
+                </LinearLayout>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_luck_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
+                android:layout_width="0dp"
+                android:layout_height="559dp"
+                android:layout_weight="1" />
+        </LinearLayout>
     </LinearLayout>
-
-    </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
